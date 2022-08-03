@@ -1,3 +1,13 @@
+.app-border {
+
+    border: 20px;
+    border-top-style: ridge;
+    border-right-style: groove;
+    border-bottom-style: double;
+    border-left-style: dashed;
+
+}
+
 h1 {
     text-align: center;
     color: aqua;
