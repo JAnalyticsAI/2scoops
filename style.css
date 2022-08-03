@@ -6,12 +6,16 @@
     border-right-style: groove;
     border-bottom-style: double;
     border-left-style: dashed;
+    border-top-color: blueviolet;
+    border-right-color: chartreuse;
+    border-bottom-color: coral;
+    border-left-color: mediumspringgreen;
 
 }
 
 h1 {
     text-align: center;
-    color: aqua;
+    color:black;
     text-decoration: double;
     text-decoration-color: aquamarine;
 }
