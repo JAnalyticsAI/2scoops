@@ -1,6 +1,6 @@
 .app-border {
 
-    border: 20px;
+    border-width: 20px;
     border-top-style: ridge;
     border-right-style: groove;
     border-bottom-style: double;
