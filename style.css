@@ -30,6 +30,7 @@ h1 {
 
 .game-border {
 
+    border-width: 10px;
     background-color: whitesmoke;
 
 }
