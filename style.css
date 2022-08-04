@@ -17,7 +17,6 @@ body {
     border-right-color: chartreuse;
     border-bottom-color: coral;
     border-left-color: mediumspringgreen;
-    width: fit-content;
 
 } 
 
@@ -33,5 +32,7 @@ h1 {
     border-width: 10px;
     background-color: whitesmoke;
     border-style: solid;
+    max-height: 950px;
+    max-width: 450px;
 
 }
