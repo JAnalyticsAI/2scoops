@@ -33,5 +33,7 @@ h1 {
     border-width: 10px;
     background-color: whitesmoke;
     border-style: solid;
+    max-height: 950px;
+    max-width: 450px;
 
 }
