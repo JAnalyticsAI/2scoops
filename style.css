@@ -33,7 +33,7 @@ h1 {
 }
 
 .game-border {
-    position: static;
+    align-content: center;
     border-width: 10px;
     background-color: whitesmoke;
     border-style: solid;
