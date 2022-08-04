@@ -34,6 +34,7 @@ h1 {
 }
 
 .game-border {
+    margin: auto;
     align-content: center;
     border-width: 10px;
     background-color: whitesmoke;
