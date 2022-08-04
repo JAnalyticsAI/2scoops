@@ -17,6 +17,8 @@ body {
     border-right-color: chartreuse;
     border-bottom-color: coral;
     border-left-color: mediumspringgreen;
+    max-height: fit-content;
+    max-width: fit-content;
 
 } 
 
