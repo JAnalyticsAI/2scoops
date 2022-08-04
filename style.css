@@ -17,8 +17,8 @@ body {
     border-right-color: chartreuse;
     border-bottom-color: coral;
     border-left-color: mediumspringgreen;
-    max-height: auto;
-    max-width: auto;
+    max-height: 100%;
+    max-width: 100%;
 
 } 
 
@@ -34,7 +34,7 @@ h1 {
     border-width: 10px;
     background-color: whitesmoke;
     border-style: solid;
-    max-height: 950px;
-    max-width: 450px;
+    max-height: 100%;
+    max-width: 100%;
 
 }
