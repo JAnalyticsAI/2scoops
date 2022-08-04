@@ -19,8 +19,8 @@ body {
     border-right-color: chartreuse;
     border-bottom-color: coral;
     border-left-color: mediumspringgreen;
-    height: 100%;
-    width: 100%;
+    height: fit-content;
+    width: fit-content;
     padding-bottom: 50%;
     padding-top: 50%;
 
