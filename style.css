@@ -28,7 +28,7 @@ h1 {
 }
 
 .game-border {
-
+    align-content: center;
     border-width: 10px;
     background-color: whitesmoke;
     border-style: solid;
