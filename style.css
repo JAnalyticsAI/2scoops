@@ -43,3 +43,13 @@ h1 {
     max-width: 50%;
 
 }
+
+@media only screen and (max-width: 480px) {
+
+    .app-border {
+
+        height:100%;
+        overflow-y: hidden;
+
+    }
+}
