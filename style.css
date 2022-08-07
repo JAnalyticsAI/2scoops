@@ -46,7 +46,7 @@ h1 {
 
 @media only screen and (max-width: 480px) {
 
-    main {
+    body {
 
         height:100%;
         overflow-y: hidden;
