@@ -44,7 +44,7 @@ h1 {
 
 }
 
-@media only screen and (max-height: 750px) {
+@media screen and (max-height: 750px) {
 
     body {
 
