@@ -24,7 +24,7 @@
   /* Pause button */
   .pausebtn {
     font-size: 16px; 
-    border: none;
+    border: 1px;
     outline: none;
     color: lightgray;
     padding: 14px 16px;
