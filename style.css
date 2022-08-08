@@ -44,6 +44,7 @@ h1 {
     height: 75%;
     width: 75%;
     padding: 50%;
+    flex: auto;
 
 }
 
