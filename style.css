@@ -30,12 +30,7 @@
 
 } 
 
-h1 {
-    text-align: center;
-    color:black;
-    text-decoration: double;
-    color: aquamarine;
-}
+
 
 .game-border {
     flex: auto;
