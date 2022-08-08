@@ -43,9 +43,9 @@ h1 {
 
 }
 
-@media screen and (max-height: 750px) {
+@media only screen {
 
-    body .app-border {
+    body {
 
         height:100%;
         overflow: hidden;
