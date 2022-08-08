@@ -35,7 +35,7 @@ h1 {
 .game-border {
     margin: auto;
     align-content: center;
-    border-width: 10px;
+    border-width: 5px;
     background-color: whitesmoke;
     border-style: solid;
     max-height: 75%;
