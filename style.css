@@ -78,8 +78,7 @@
 @media only screen and (max-width: 480px) {
 
     body {
-
-        height:100%;
+      
         overflow: hidden;
 
     }
