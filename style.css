@@ -62,7 +62,7 @@
 
 .game-border {
     flex: auto;
-    margin: auto;
+    margin: 200px 200px;
     justify-content: center;
     border-width: 5px;
     background-color: pink;
