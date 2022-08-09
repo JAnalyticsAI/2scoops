@@ -49,19 +49,18 @@
     border-top-color: blueviolet;
     border-right-color: chartreuse;
     border-bottom-color: coral;
-    border-left-color: mediumspringgreen;
+    border-left-color: mediumspringgreen;;
     max-width: 100%;
     max-height: 100%;
     padding-bottom: 25%;
     padding-top: 25%;
     padding-left: 25%;
     padding-right: 25%;
-    vertical-align: bottom;
 
 } 
 
 .game-border {
-  
+
     flex: auto;
     margin: auto;
     justify-content: center;
