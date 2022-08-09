@@ -62,13 +62,13 @@
 
 .game-border {
     flex: auto;
-    margin: 200px 200px;
+    margin: auto;
     justify-content: center;
     border-width: 5px;
     background-color: pink;
     border-style: solid;
-    height: 75%;
-    width: 25%;
+    height: 200px;
+    width: 100px;
     padding: 50%;
 
 }
