@@ -64,11 +64,12 @@
     flex: auto;
     margin: auto;
     justify-content: center;
+    box-sizing: border-box;
     border-width: 5px;
     background-color: pink;
     border-style: solid;
-    height: 200px;
-    width: 100px;
+    height: 75%;
+    width: 75%;
     padding: 50%;
 
 }
