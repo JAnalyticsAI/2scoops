@@ -69,12 +69,14 @@
 #game-border {
 
     /* margin: auto;
-    justify-content: center;
-    box-sizing: border-box; */
+    justify-content: center; */
+    box-sizing: border-box;
     border-width: 2.5px;
     background-color: pink;
     border-style: solid;
-    padding: 100px 80px 300px 80px; 
+    /* padding: 100px 80px 300px 80px; */
+    height: 90%;
+    width: 90%;
 
 }
 
