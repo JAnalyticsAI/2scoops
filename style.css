@@ -47,7 +47,6 @@
 #app-border {
 
     margin: auto;
-    align-content: center;
     border-width: 20px;
     border-radius: 5px;
     border-top-style: ridge;
@@ -70,7 +69,6 @@
 
 #game-border {
 
-    float: left;
     margin: auto;
     justify-content: center;
     box-sizing: border-box;
