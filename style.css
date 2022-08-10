@@ -46,7 +46,7 @@
 
 #app-border {
 
-    margin: auto;
+    margin-bottom: auto;
     border-width: 20px;
     border-radius: 5px;
     border-top-style: ridge;
