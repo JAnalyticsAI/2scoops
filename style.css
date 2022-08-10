@@ -11,8 +11,8 @@
     font-family: Arial;
   }
   
-  /* Links inside the navbar */
-  .navbar a {
+  /* P tags in navbar */
+  .navbar p {
     float: left;
     font-size: 16px;
     color: black;
