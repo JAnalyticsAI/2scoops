@@ -64,7 +64,7 @@
 .game-border {
 
     flex: auto;
-    margin: 1px;
+    margin: auto;
     justify-content: center;
     box-sizing: border-box;
     border-width: 5px;
