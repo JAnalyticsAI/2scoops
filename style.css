@@ -70,6 +70,7 @@
 
 #game-border {
 
+    float: left;
     margin: auto;
     justify-content: center;
     box-sizing: border-box;
