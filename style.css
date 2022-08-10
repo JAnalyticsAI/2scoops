@@ -72,10 +72,12 @@
     margin: auto;
     justify-content: center;
     box-sizing: border-box;
+    width: 90%;
+    height:90%;
     border-width: 5px;
     background-color: pink;
     border-style: solid;
-    padding: 60px 80px 305px 80px;
+    /* padding: 60px 80px 305px 80px; */
 
 }
 
