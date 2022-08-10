@@ -6,6 +6,10 @@
 
 /* Navbar container */
 .navbar {
+    border-width: 20px;
+    border-radius: 5px;
+    border-style: ridge;
+    border-color: blueviolet;
     overflow: hidden;
     background-color: pink;
     font-family: Arial;
