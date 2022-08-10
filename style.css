@@ -64,11 +64,11 @@
     padding-top: 20%;
     padding-left: 30%;
     padding-right: 30%;
-    
+
 
 } 
 
-.game-border {
+#game-border {
 
     flex: auto;
     margin: auto;
