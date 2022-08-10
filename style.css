@@ -65,7 +65,7 @@
 
     flex: auto;
     margin: auto;
-    justify-content: center;
+    align-content: center;
     box-sizing: border-box;
     border-width: 5px;
     background-color: pink;
