@@ -71,7 +71,7 @@
 #game-border {
 
     margin: auto;
-    align-content: center;
+    justify-content: center;
     box-sizing: border-box;
     border-width: 5px;
     background-color: pink;
