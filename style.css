@@ -23,9 +23,6 @@
 
 /* Navbar container */
 .navbar {
-  border-width: 20px;
-  border-style: ridge;
-  border-color: coral;
   overflow: hidden;
   background-color: pink;
   font-family: Arial;
