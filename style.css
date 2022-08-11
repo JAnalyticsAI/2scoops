@@ -33,7 +33,9 @@
   
 #app-border {
 
-  position: absolute;
+  position: fixed;
+  top: 0;
+  left: 0;
   background-color: aqua;
   border-width: 20px;
   border-radius: 5px;
