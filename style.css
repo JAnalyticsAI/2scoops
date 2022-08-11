@@ -1,3 +1,9 @@
+body {
+
+  viewport-fit: auto;
+
+}
+
 /* Navbar container */
 .navbar {
   border-width: 20px;
