@@ -1,5 +1,6 @@
 /* Navbar container */
 .navbar {
+  float: left;
   border-width: 20px;
   border-style: ridge;
   border-color: coral;
