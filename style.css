@@ -40,7 +40,7 @@ overflow: scroll hidden;
   
 #app-border {
 
-  margin-bottom: auto;
+  margin-bottom: 0;
   border-width: 20px;
   border-radius: 5px;
   border-top-style: ridge;
