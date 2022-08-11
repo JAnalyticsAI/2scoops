@@ -54,15 +54,13 @@
 
 #game-border {
 
-  /* margin: auto;
-  justify-content: center; */
-  /* border-color: inherit; */
+  /* margin: auto; */
   box-sizing: border-box;
   border-width: 2.5px;
   background-color: pink;
   border-style: solid;
-  /* padding: 100px 80px 300px 80px; */
-  height: 400px;
+  height: 100%;
+  width: 100%;
 
 }
 
