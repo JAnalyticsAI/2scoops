@@ -17,7 +17,7 @@ overflow: scroll hidden;
   
 /* P tags in navbar */
 .navbar p {
-  float: left;
+  /*float: left;*/
   font-size: 16px;
   color: black;
   text-align: center;
