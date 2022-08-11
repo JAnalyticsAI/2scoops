@@ -1,75 +1,73 @@
- body {
+body {
 
-  background-color: aqua;
-  overflow: scroll hidden;
+background-color: aqua;
+overflow: scroll hidden;
 
- }
+}
 
 /* Navbar container */
 .navbar {
-    border-width: 20px;
-    border-style: ridge;
-    border-color: coral;
-    overflow: hidden;
-    background-color: pink;
-    font-family: Arial;
-  }
+  border-width: 20px;
+  border-style: ridge;
+  border-color: coral;
+  overflow: hidden;
+  background-color: pink;
+  font-family: Arial;
+}
   
-  /* P tags in navbar */
-  .navbar p {
-    float: left;
-    font-size: 16px;
-    color: black;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-  }
+/* P tags in navbar */
+.navbar p {
+  float: left;
+  font-size: 16px;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
   
-  /* Pause button */
-  .pausebtn {
-    font-size: 16px; 
-    border-width: 2px;
-    border-radius: 60px;
-    outline: none;
-    color: black;
-    padding: 14px 16px;
-    background-color: inherit;
-    font-family: inherit; /* Important for vertical align on mobile phones */
-    margin: 0; /* Important for vertical align on mobile phones */
-  }
+/* Pause button */
+.pausebtn {
+  font-size: 16px; 
+  border-width: 2px;
+  border-radius: 60px;
+  outline: none;
+  color: black;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit; /* Important for vertical align on mobile phones */
+  margin: 0; /* Important for vertical align on mobile phones */
+}
   
-
 #app-border {
 
-    margin-bottom: auto;
-    border-width: 20px;
-    border-radius: 5px;
-    border-top-style: ridge;
-    border-right-style: groove;
-    border-bottom-style: double;
-    border-left-style: dashed;
-    border-top-color: blueviolet;
-    border-right-color: chartreuse;
-    border-bottom-color: coral;
-    border-left-color: mediumspringgreen;;
-    width: 100%;
-    height: 100%;
-    viewport-fit: auto;
-    padding: 10% 10% 10% 10%;
-
+  margin-bottom: auto;
+  border-width: 20px;
+  border-radius: 5px;
+  border-top-style: ridge;
+  border-right-style: groove;
+  border-bottom-style: double;
+  border-left-style: dashed;
+  border-top-color: blueviolet;
+  border-right-color: chartreuse;
+  border-bottom-color: coral;
+  border-left-color: mediumspringgreen;;
+  width: 100%;
+  height: 100%;
+  viewport-fit: auto;
+  padding: 10% 10% 10% 10%;
 
 } 
 
 #game-border {
 
-    /* margin: auto;
-    justify-content: center; */
-    box-sizing: border-box;
-    border-width: 2.5px;
-    background-color: pink;
-    border-style: solid;
-    /* padding: 100px 80px 300px 80px; */
-    height: 400px;
+  /* margin: auto;
+  justify-content: center; */
+  box-sizing: border-box;
+  border-width: 2.5px;
+  background-color: pink;
+  border-style: solid;
+  /* padding: 100px 80px 300px 80px; */
+  height: 400px;
 
 }
 
