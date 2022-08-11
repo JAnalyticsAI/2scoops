@@ -46,6 +46,7 @@
   border-left-color: mediumspringgreen;;
   overflow-y: hidden;
   padding: 10% 10% 10% 10%;
+  min-height: inherit;
 
 } 
 
@@ -56,10 +57,19 @@
   border-width: 2.5px;
   background-color: pink;
   border-style: solid;
-  height: 600px;
+  height: 500px;
 
 }
 
+#game-border:after {
+
+  content: "";
+  width: 1px;
+  height: 2px;
+  background: none;
+  border: 1px;
+
+}
 
 /* @media only screen and (min-width: 480px) {
 
