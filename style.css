@@ -1,9 +1,3 @@
-body {
-
-  viewport-fit: cover;
-
-}
-
 /* Navbar container */
 .navbar {
   border-width: 20px;
@@ -50,8 +44,6 @@ body {
   border-right-color: chartreuse;
   border-bottom-color: coral;
   border-left-color: mediumspringgreen;;
-  width: 100%;
-  height: 100%;
   overflow-y: hidden;
   padding: 10% 10% 10% 10%;
 
