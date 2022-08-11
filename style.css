@@ -1,3 +1,26 @@
+  #app-border {
+
+  position: fixed;
+  top: 68;
+  bottom: 0;
+  left: 0;
+  background-color: aqua;
+  border-width: 20px;
+  border-radius: 5px;
+  border-top-style: ridge;
+  border-right-style: groove;
+  border-bottom-style: ridge;
+  border-left-style: groove;
+  border-top-color: blueviolet;
+  border-right-color: chartreuse;
+  border-bottom-color: coral;
+  border-left-color: mediumspringgreen;
+  width: 100%;
+  height: 100%;
+
+
+} 
+
 /* Navbar container */
 .navbar {
   border-width: 20px;
@@ -30,29 +53,6 @@
   font-family: inherit; /* Important for vertical align on mobile phones */
   margin: 0; /* Important for vertical align on mobile phones */
 }
-  
-#app-border {
-
-  position: fixed;
-  top: 68;
-  bottom: 0;
-  left: 0;
-  background-color: aqua;
-  border-width: 20px;
-  border-radius: 5px;
-  border-top-style: ridge;
-  border-right-style: groove;
-  border-bottom-style: ridge;
-  border-left-style: groove;
-  border-top-color: blueviolet;
-  border-right-color: chartreuse;
-  border-bottom-color: coral;
-  border-left-color: mediumspringgreen;
-  width: 100%;
-  height: 100%;
-
-
-} 
 
 /* #game-border {
 
