@@ -23,6 +23,7 @@
 
 /* Navbar container */
 .navbar {
+  border-style: solid;
   overflow: hidden;
   background-color: pink;
   font-family: Arial;
