@@ -75,9 +75,6 @@ overflow: scroll hidden;
 
 /* @media only screen and (min-width: 480px) {
 
-    body {
+  overflow-y: hidden;
 
-      ;
-
-    }
 } */
