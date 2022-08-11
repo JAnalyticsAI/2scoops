@@ -49,16 +49,16 @@
 
 } 
 
-#game-border {
+/* #game-border {
 
-  /* margin: auto; */
+  margin: auto; 
   box-sizing: border-box;
   border-width: 2.5px;
   background-color: pink;
   border-style: solid;
   height: 450px;
 
-}
+} */
 
 /* @media only screen and (min-width: 480px) {
 
