@@ -24,7 +24,7 @@
   border-style: solid;
   border-width: 1px;
   overflow: hidden;
-  background-color: pink;
+  background-color: inherit;
   font-family: Arial;
 }
   
