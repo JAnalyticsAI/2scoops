@@ -51,7 +51,7 @@
   margin: 0; /* Important for vertical align on mobile phones */
 }
 
-/* #game-border {
+#game-border {
 
   margin: auto; 
   box-sizing: border-box;
@@ -60,7 +60,7 @@
   border-style: solid;
   height: 450px;
 
-} */
+}
 
 /* @media only screen and (min-width: 480px) {
 
