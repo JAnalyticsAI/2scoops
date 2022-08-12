@@ -54,8 +54,8 @@
 #game-border {
 
   position: absolute;
-  float: inline-start;
-  align-items: center;
+  left: 20;
+  top: 20;
   margin: auto; 
   box-sizing: border-box;
   border-width: 2.5px;
