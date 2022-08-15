@@ -43,7 +43,7 @@
   font-size: 16px; 
   border-width: 2px;
   border-radius: 60px;
-  outline: none;
+  outline: 2px;
   color: black;
   padding: 14px 16px;
   background-color: inherit;
