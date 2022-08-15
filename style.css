@@ -54,7 +54,7 @@
 #game-border {
 
   position: fixed;
-  margin: auto; 
+  margin: 50%; 
   box-sizing: border-box;
   border-width: 2.5px;
   background-color: pink;
