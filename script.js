@@ -8,7 +8,7 @@ var isPaused = true;
 
 function pauseMenu () {
 
-    window.open(windowFeatures.popup);
+    
 
 }
 
