@@ -1,0 +1,9 @@
+
+
+
+
+function pauseMenu () {
+
+    window.open();
+
+}
