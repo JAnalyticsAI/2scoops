@@ -54,13 +54,13 @@
 #game-border {
 
   position: fixed;
-  margin: 25% 25% 25% 25%; 
+  margin: 35% 25% 15% 25%; 
   box-sizing: border-box;
   border-width: 2.5px;
   background-color: pink;
   border-style: solid;
-  height: 50%;
-  width: 50%;
+  height: 40%;
+  width: 60%;
 
 }
 
