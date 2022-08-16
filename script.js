@@ -5,7 +5,7 @@ const pause = docuemnt.getElementsByClassName(pausebtn)
 
 function pauseMenu () {
 
-    window.open();
+    window.open(windowFeatures.popup);
 
 }
 
