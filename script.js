@@ -1,4 +1,4 @@
-const pause = docuemnt.getElementsByClassName(pausebtn)
+var pause = docuemnt.getElementsByClassName(pausebtn)
 
 
 
