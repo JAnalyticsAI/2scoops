@@ -72,10 +72,11 @@ img {
 
 }
 
-/* @media only screen and (max-width: 500px) {
+/* @media only screen and (max-width: 440px) {
 
   #game-border {
 
+    position: fixed
     margin: 25% 25% 25% 25%
     top: 15%
 
