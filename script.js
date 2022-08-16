@@ -1,5 +1,4 @@
-
-
+const pause = docuemnt.getElementsByClassName(pausebtn)
 
 
 function pauseMenu () {
