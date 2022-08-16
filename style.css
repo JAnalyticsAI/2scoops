@@ -55,6 +55,7 @@
 
   position: fixed;
   margin: 25% 25% 25% 25%;
+  top: 10%;
   box-sizing: border-box;
   border-width: 2.5px;
   background-color: pink;
