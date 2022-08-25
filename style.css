@@ -78,6 +78,7 @@ img {
   height: 2%;
   position: relative;
   animation: backwards;
+  float: left;
 
 }
 
