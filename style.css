@@ -67,15 +67,15 @@
 
 img {
 
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
 
 }
 
 .block {
 
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   position: relative;
   float: left;
   background-color: aqua;
