@@ -72,6 +72,15 @@ img {
 
 }
 
+#block {
+
+  width: 2%;
+  height: 2%;
+  position: relative;
+  animation: backwards;
+
+}
+
 @media only screen and (max-width: 440px) {
 
   #game-border {
