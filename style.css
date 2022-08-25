@@ -77,7 +77,6 @@ img {
   width: 30px;
   height: 30px;
   position: relative;
-  animation: backwards;
   float: left;
   background-color: aqua;
   border-width: 1px;
