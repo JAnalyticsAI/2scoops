@@ -79,6 +79,9 @@ img {
   position: relative;
   animation: backwards;
   float: left;
+  background-color: aqua;
+  border-width: 1px;
+  border-style: solid;
 
 }
 
