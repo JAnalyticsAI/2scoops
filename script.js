@@ -5,10 +5,14 @@ var pause = docuemnt.getElementsByClassName("pausebtn");
 
 
 
-function pauseMenu () {
+/* function pauseMenu () {
 
     
 
 }
 
-pausebtn.addEventListener("click", pauseMenu);
+pausebtn.addEventListener("click", pauseMenu); */
+
+$( ".block" ).draggable({
+    create: function( event, ui ) {}
+  });
