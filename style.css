@@ -66,6 +66,8 @@
 
 .block {
 
+  display: flex;
+  justify-content: space-evenly;
   width: 25px;
   height: 25px;
   position: relative;
