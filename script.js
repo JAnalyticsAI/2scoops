@@ -21,13 +21,34 @@ function clearCanvas() {
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-}
+};
 
-// Event Listener for touch events
+// Event Listener for movable events
 
 canvas.addEventListener("touchstart", handleTouchStart);
 canvas.addEventListener("touchmove", handleTouchMove);
 canvas.addEventListener("touchend", handleTouchEnd);
+document.addEventListener("keydown", function(event) {
+
+  if (event.key === "ArrowLeft") {
+
+    cubeX -= cubeSpeed;
+
+  } elseif (event.key === "ArrowRight"); {
+
+    cubeX += cubeSpeed;
+
+  } elseif (event.key === "ArrowUp"); {
+
+    cubeY -= cubeSpeed;
+
+  } elseif (event.key === "ArrowDown"); {
+
+    cubeY += cubeSpeed;
+
+  }
+
+});
 
 let touchStartX = 0;
 let touchStartY = 0;
