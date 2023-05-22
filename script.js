@@ -30,7 +30,21 @@ canvas.addEventListener("touchmove", handleTouchMove);
 canvas.addEventListener("touchend", handleTouchEnd);
 document.addEventListener("keydown", function(event) {
 
-  if (event.key === "ArrowLeft") {
+  switch(event) {
+    case event.key === ("ArrowLeft"):
+      cubeX -= cubeSpeed;
+      break;
+    case event.key === ("ArrowRight"):
+      cubeX += cubeSpeed;
+      break;
+    case event.key === ("ArrowUp"):
+      cubeY -= cubeSpeed;
+    case event.key === ("ArrowDown"):
+      cubeY += cubeSpeed;
+      break;
+  }
+
+  /* if (event.key === "ArrowLeft") {
 
     cubeX -= cubeSpeed;
 
@@ -42,13 +56,13 @@ document.addEventListener("keydown", function(event) {
 
     cubeY -= cubeSpeed;
 
-  } else if (event.key === "ArrowDown"); {
+  } else (event.key === "ArrowDown"); {
 
     cubeY += cubeSpeed;
 
-  }
+  } */
 
-});
+}); 
 
 let touchStartX = 0;
 let touchStartY = 0;
