@@ -30,20 +30,16 @@ canvas.addEventListener("touchmove", handleTouchMove);
 canvas.addEventListener("touchend", handleTouchEnd);
 document.addEventListener("keydown", function(event) {
 
-  switch(event) {
-    case left:
-      event.key === ("ArrowLeft")
+  switch(event.key) {
+    case "ArrowLeft":
       cubeX -= cubeSpeed;
       break;
-    case right:
-      event.key === ("ArrowRight")
+    case "ArrowRight":
       cubeX += cubeSpeed;
       break;
-    case up:
-      event.key === ("ArrowUp")
+    case "ArrowUp":
       cubeY -= cubeSpeed;
-    case down:
-      event.key === ("ArrowDown")
+    case ArrowDown:
       cubeY += cubeSpeed;
       break;
   }
