@@ -38,9 +38,9 @@ document.addEventListener("keydown", function(event) {
       cubeX += cubeSpeed;
       break;
     case "ArrowUp":
-      cubeY -= cubeSpeed;
-    case ArrowDown:
       cubeY += cubeSpeed;
+    case ArrowDown:
+      cubeY -= cubeSpeed;
       break;
   }
 
