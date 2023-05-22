@@ -37,23 +37,17 @@ document.addEventListener("keydown", function(event) {
     case "ArrowRight":
       cubeX += cubeSpeed;
       break;
-    case "ArrowUp":
-      cubeY -= cubeSpeed;
-      break;
-    case "ArrowDown":
-      cubeY += cubeSpeed;
-      break;
   }
 
-  /*if (event.key === "ArrowUp"); {
+   if (event.key === "ArrowUp") {
 
     cubeY -= cubeSpeed;
 
-  } else if (event.key === "ArrowDown"); {
+  } else (event.key === "ArrowDown"); {
 
     cubeY += cubeSpeed;
 
-  } */
+  } 
 
 }); 
 
