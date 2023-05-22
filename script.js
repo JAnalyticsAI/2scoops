@@ -34,15 +34,15 @@ document.addEventListener("keydown", function(event) {
 
     cubeX -= cubeSpeed;
 
-  } elseif (event.key === "ArrowRight"); {
+  } else if (event.key === "ArrowRight"); {
 
     cubeX += cubeSpeed;
 
-  } elseif (event.key === "ArrowUp"); {
+  } else if (event.key === "ArrowUp"); {
 
     cubeY -= cubeSpeed;
 
-  } elseif (event.key === "ArrowDown"); {
+  } else if (event.key === "ArrowDown"); {
 
     cubeY += cubeSpeed;
 
