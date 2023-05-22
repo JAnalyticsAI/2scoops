@@ -51,7 +51,7 @@
   margin: 0; /* Important for vertical align on mobile phones */
 } 
 
-#game-border {
+/* #game-border {
 
   position: fixed;
   margin: 25% 25% 25% 25%;
@@ -62,7 +62,7 @@
   height: 50%;
   width: 50%;
 
-}
+} */
 
 /* .block {
 
@@ -75,7 +75,7 @@
 
 } */
 
-@media only screen and (max-width: 440px) {
+/* @media only screen and (max-width: 440px) {
 
   #game-border {
 
@@ -88,4 +88,4 @@
 
   }
 
-}
+} */
