@@ -1,32 +1,33 @@
 // Get the border of the game
-const gameBorder = document.getElementById("app-border");
-const ctx = gameBorder.getContext("2d");
+const canvas = document.getElementById("myCanvas");
+const ctx = canvas.getContext("2d");
 
 // Set up cube properties
 let cubeSize = 25;
-let cubeX = gameBorder.width / 2 - cubeSize / 2;
-let cubeY = gameBorder.height / 2 - cubeSize / 2;
+let cubeX = canvas.width / 2 - cubeSize / 2;
+let cubeY = canvas.height / 2 - cubeSize / 2;
 let cubeSpeed = 5;
 
 //Draw the cube
 function drawCube() {
 
+  ctx.fillStyle = "red";
   ctx.fillRect(cubeX, cubeY, cubeSize, cubeSize);
   
 }
 
-// Function to clear the game board
-function clearGB() {
+// Function to clear the canvas
+function clearCanvas() {
 
-  ctx.clearRect(0, 0, gameBorder.width, gameBorder.height);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 }
 
 // Event Listener for touch events
 
-gameBorder.addEventListener("touchstart", handleTouchStart);
-gameBorder.addEventListener("touchmove", handleTouchMove);
-gameBorder.addEventListener("touchend", handleTouchEnd);
+canvas.addEventListener("touchstart", handleTouchStart);
+canvas.addEventListener("touchmove", handleTouchMove);
+canvas.addEventListener("touchend", handleTouchEnd);
 
 let touchStartX = 0;
 let touchStartY = 0;
