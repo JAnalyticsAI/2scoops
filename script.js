@@ -67,7 +67,7 @@ function handleTouchEnd() {
 //Main game loop
 function gameLoop() {
 
-  clearGB();
+  clearCanvas();
   drawCube();
   requestAnimationFrame(gameLoop);
 
