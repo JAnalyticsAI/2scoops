@@ -45,19 +45,11 @@ document.addEventListener("keydown", function(event) {
       break;
   }
 
-  /* if (event.key === "ArrowLeft") {
-
-    cubeX -= cubeSpeed;
-
-  } else if (event.key === "ArrowRight"); {
-
-    cubeX += cubeSpeed;
-
-  } else if (event.key === "ArrowUp"); {
+  /*if (event.key === "ArrowUp"); {
 
     cubeY -= cubeSpeed;
 
-  } else (event.key === "ArrowDown"); {
+  } else if (event.key === "ArrowDown"); {
 
     cubeY += cubeSpeed;
 
