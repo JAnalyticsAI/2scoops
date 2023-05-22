@@ -75,6 +75,14 @@
 
 }
 
+canvas {
+
+  border: 1px lightblue;
+  width: 5px;
+  height: 5px;
+
+}
+
 @media only screen and (max-width: 440px) {
 
   #game-border {
