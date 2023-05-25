@@ -1,5 +1,5 @@
 // Get the border of the game
-const canvas = document.getElementById("app-border");
+const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
 
 // Set up cube properties
