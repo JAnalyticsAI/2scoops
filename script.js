@@ -14,7 +14,9 @@ for (let i = 0; i < rows; i++) {
     cell.classList.add("cell");
     cell.textContent = `${i}, ${j}`; // Example cell content (Place other game objects here)
     board.appendChild(cell);
+
   }
+  
 }
 //Cell click event
 const cells = document.querySelectorAll(".cell");
