@@ -25,9 +25,6 @@ function clearCanvas() {
 
 // Event Listener for movable events
 
-canvas.addEventListener("touchstart", handleTouchStart);
-canvas.addEventListener("touchmove", handleTouchMove);
-canvas.addEventListener("touchend", handleTouchEnd);
 document.addEventListener("keydown", function(event) {
 
   switch(event.key) {
@@ -45,17 +42,11 @@ document.addEventListener("keydown", function(event) {
       break;
   }
 
-  /*if (event.key === "ArrowUp"); {
-
-    cubeY -= cubeSpeed;
-
-  } else (event.key === "ArrowDown"); {
-
-    cubeY += cubeSpeed;
-
-  } */
-
 }); 
+
+canvas.addEventListener("touchstart", handleTouchStart);
+canvas.addEventListener("touchmove", handleTouchMove);
+canvas.addEventListener("touchend", handleTouchEnd);
 
 let touchStartX = 0;
 let touchStartY = 0;
