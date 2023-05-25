@@ -20,12 +20,12 @@
 
 #myCanvas {
 
-  position: relative;
+  position: inherit;
   border: 1px;
   border-color:black;
   border-style: solid;
-  width: 90%;
-  height: 90%;
+  width: inherit;
+  height: inherit;
 
 }
 
