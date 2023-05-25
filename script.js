@@ -18,6 +18,16 @@ for (let i = 0; i < rows; i++) {
 }
 //Cell click event
 const cells = document.querySelectorAll(".cell");
+cells.forEach(cell => {
+
+  cell.addEventListener("click", () => {
+
+    //Handle cell click logic
+    console.log("Clicked cell:", cell.textContent);
+
+  });
+
+});
 
 // Set up cube properties
 let cubeSize = 25;
@@ -99,17 +109,6 @@ function handleTouchEnd() {
   };
 
 };
-
-cells.forEach(cell => {
-
-  cell.addEventListener("click", () => {
-
-    //Handle cell click logic
-    console.log("Clicked cell:", cell.textContent);
-
-  });
-
-});
 
 //Main game loop
 function gameLoop() {
