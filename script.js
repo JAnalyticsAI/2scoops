@@ -89,12 +89,28 @@ function handleTouchEnd() {
 
 };
 
+// Update cube position based on key input abd boundaries check
+function updateCubePosition() {
+
+  if (keys.left) cubeX -= cubeSpeed;
+  if (keys.right) cubeX += cubeSpeed;
+  if (keys.up) cubeY -= cubeSpeed;
+  if (keys.down) cubeY += cubeSpeed;
+
+  // Restrict cube movement within canvas boundaries
+  cubeX = Math.max(0, Math.min(canvas.width - cubeSize, cubeX));
+  cubeY = Math.max(0, Math.min(canvas.height - cubeSize, cubeY));
+
+}
+
+
+
 //Main game loop
 function gameLoop() {
 
   clearCanvas();
   drawCube();
-  requestAnimationFrame(gameLoop);
+  requestAnimationFrame(gameLoop); // Call the game loop again for the next frame
 
 }
 
