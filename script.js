@@ -1,8 +1,11 @@
 // Get the border of the game
+const appborder = document.getElementById("appborder");
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
 
-// Canvas Size
+// Border & Canvas Size
+appborder.width = window.innerWidth;
+appborder.height = window.innerHeight;
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
