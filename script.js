@@ -28,11 +28,11 @@ function clearCanvas() {
 };
 
 // Function to resize canvas
-function resizeCanvas() {
+/*function resizeCanvas() {
   
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
-};
+}; */
 
 // Event Listener for movable events
 
@@ -118,8 +118,9 @@ function gameLoop() {
 
 }
 
-//Start the game loop
+//Calling Functions
 gameLoop();
+updateCubePosition();
 
 // Board dimensions
 const rows = 5;
