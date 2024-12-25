@@ -8,8 +8,8 @@ canvas.height = window.innerHeight;
 
 // Set up cube properties
 let cubeSize = 25;
-let cubeX = canvas.width / 2 - cubeSize / 2;
-let cubeY = canvas.height / 2 - cubeSize / 2;
+let cubeX = 15;
+let cubeY = 15;
 let cubeSpeed = 5;
 
 //Draw the cube
