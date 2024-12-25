@@ -1,4 +1,13 @@
-  #app-border {
+ body, html {
+  
+  margin: 0;
+  padding: 0;
+  height: 100%; /* Ensure full height of the viewport*/
+  width: 100%; /* Ensure full width of the viewport*/
+
+ }
+
+ #app-border {
 
   position: fixed;
   top: 0;
@@ -20,6 +29,7 @@
 
 #myCanvas {
 
+  display: block;
   border: 1px;
   border-color:black;
   border-style: solid;
