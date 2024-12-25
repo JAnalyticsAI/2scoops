@@ -55,10 +55,6 @@ document.addEventListener("keydown", function(event) {
 
 }); 
 
-canvas.addEventListener("touchstart", handleTouchStart);
-canvas.addEventListener("touchmove", handleTouchMove);
-canvas.addEventListener("touchend", handleTouchEnd);
-
 let touchStartX = 0;
 let touchStartY = 0;
 let touchMoved = false;
@@ -94,6 +90,11 @@ function handleTouchEnd() {
 
 };
 
+canvas.addEventListener("touchstart", handleTouchStart);
+canvas.addEventListener("touchmove", handleTouchMove);
+canvas.addEventListener("touchend", handleTouchEnd);
+
+
 // Update cube position based on key input abd boundaries check
 function updateCubePosition() {
 
@@ -107,7 +108,6 @@ function updateCubePosition() {
   cubeY = Math.max(0, Math.min(canvas.height - cubeSize, cubeY));
 
 }
-
 
 
 //Main game loop
