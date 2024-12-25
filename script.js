@@ -10,7 +10,7 @@ canvas.height = window.innerHeight;
 let cubeSize = 25;
 let cubeX = 15;
 let cubeY = 15;
-let cubeSpeed = 5;
+let cubeSpeed = 100;
 
 //Draw the cube
 function drawCube() {
