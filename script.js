@@ -1,6 +1,11 @@
 // Get the border of the game
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
+
+// Canvas Size
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
 // Set up cube properties
 let cubeSize = 25;
 let cubeX = canvas.width / 2 - cubeSize / 2;
