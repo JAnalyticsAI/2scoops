@@ -23,8 +23,8 @@
   border: 1px;
   border-color:black;
   border-style: solid;
-  width: "app-border";
-  height: "app-border";
+  width: 100%;
+  height: 100%;
 
 }
 
