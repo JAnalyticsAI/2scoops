@@ -29,6 +29,7 @@
 
 #myCanvas {
 
+  box-sizing: border-box;
   display: block;
   border: 1px;
   border-color:black;
