@@ -4,6 +4,7 @@
   padding: 0;
   height: 100%; /* Ensure full height of the viewport*/
   /* width: 100%; /* Ensure full width of the viewport*/
+  overflow: hidden; /* Prevent Scolling */
 
  }
 
