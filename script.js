@@ -120,7 +120,6 @@ function gameLoop() {
 
 //Calling Functions
 gameLoop();
-updateCubePosition();
 
 // Board dimensions
 const rows = 5;
