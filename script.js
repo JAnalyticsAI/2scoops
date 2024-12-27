@@ -1,5 +1,4 @@
 // Get the border of the game
-const appborder = document.getElementById("appborder");
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
 
