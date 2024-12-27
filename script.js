@@ -22,11 +22,11 @@ function drawCube() {
 };
 
 // Function to clear the canvas
-/* function clearCanvas() {
+function clearCanvas() {
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-}; */
+};
 
 // Function to resize canvas
 /*function resizeCanvas() {
@@ -113,10 +113,10 @@ canvas.addEventListener("touchend", handleTouchEnd);
 //Main game loop
 function gameLoop() {
 
-  /* clearCanvas(); */
+  clearCanvas();
   drawCube();
   requestAnimationFrame(gameLoop); // Call the game loop again for the next frame
-  updateCubePosition();
+  /* updateCubePosition(); */
   handleTouchStart();
   handleTouchMove();
   handleTouchEnd();
