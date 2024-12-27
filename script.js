@@ -3,9 +3,7 @@ const appborder = document.getElementById("appborder");
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
 
-// Border & Canvas Size
-appborder.width = window.innerWidth;
-appborder.height = window.innerHeight;
+// Canvas Size
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
