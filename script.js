@@ -116,6 +116,9 @@ function gameLoop() {
   clearCanvas();
   drawCube();
   requestAnimationFrame(gameLoop); // Call the game loop again for the next frame
+  handleTouchStart();
+  handleTouchMove();
+  handleTouchEnd();
 
 }
 
