@@ -12,6 +12,8 @@
   position: fixed;
   top: 0;
   left: 0;
+  right: 0;
+  bottom: 0;
   background-color: aqua;
   border-width: 20px;
   border-top-style: ridge;
