@@ -62,7 +62,6 @@
 } 
 
 .board {
-  top: 25%;
   display: flex;
   align-self: center;
   background-color: black;
