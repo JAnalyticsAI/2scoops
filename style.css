@@ -62,9 +62,8 @@
 } 
 
 .board {
-
+  top: 25%;
   display: flex;
-  justify-self: center;
   align-self: center;
   grid-template-columns: repeat(auto-fit, minmax (50px, 1fr));
   gap: 2px;
