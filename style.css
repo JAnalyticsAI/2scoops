@@ -67,8 +67,8 @@
   grid-template-columns: repeat(auto-fit, minmax (50px, 1fr));
   gap: 2px;
   background-color: black;
-  padding: 75%;
-  max-width: 90%;
+  padding: auto;
+  max-width: auto;
   margin: auto;
 
 }
