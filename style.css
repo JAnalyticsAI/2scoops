@@ -68,8 +68,8 @@
   gap: 2px;
   background-color: black;
   padding: auto;
-  max-width: auto;
-  margin: auto;
+  width: 75%;
+  height: 75%;
 
 }
 
