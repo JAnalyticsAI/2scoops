@@ -62,7 +62,7 @@
 } 
 
 .board {
-  display: float;
+  display: inline-flex;
   background-color: inherit;
   border-style: solid;
   border-color: black;
