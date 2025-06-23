@@ -66,9 +66,9 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax (50px, 1fr));
   gap: 2px;
-  background-color: aquamarine;
-  padding: 5px;
-  max-width: 500px;
+  background-color: black;
+  padding: 75% 0 75% 0; /* Top and bottom padding to center the grid vertically */
+  max-width: 90%;
   margin: auto;
 
 }
