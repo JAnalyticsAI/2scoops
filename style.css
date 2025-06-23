@@ -62,9 +62,10 @@
 } 
 
 .board {
-  display: flex;
-  align-self: center;
-  background-color: black;
+  display: float;
+  background-color: inherit;
+  border-style: solid;
+  border-color: black;
   padding-top: 25%;
   padding-right: 25%;
   width: 75%;
