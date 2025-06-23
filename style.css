@@ -62,7 +62,7 @@
 } 
 
 #game-container{
-  display: inline-flex;
+  display: flex;
   background-color: inherit;
   border-style: solid;
   border-color: black;
