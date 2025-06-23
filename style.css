@@ -61,7 +61,7 @@
   margin: 0; /* Important for vertical align on mobile phones */
 } 
 
-.board {
+#game-container{
   display: inline-flex;
   background-color: inherit;
   border-style: solid;
