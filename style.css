@@ -64,8 +64,8 @@
 .board {
 
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-self: center;
+  align-self: center;
   grid-template-columns: repeat(auto-fit, minmax (50px, 1fr));
   gap: 2px;
   background-color: black;
