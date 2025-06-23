@@ -29,17 +29,6 @@
 
 } 
 
-#myCanvas {
-
-  display: block;
-  border: 1px;
-  border-color:black;
-  border-style: solid;
-  width: 100%vw;
-  height: 100%vh;
-
-}
-
 /* Navbar container */
 .navbar {
   border-style: solid;
