@@ -65,10 +65,8 @@
   top: 25%;
   display: flex;
   align-self: center;
-  grid-template-columns: repeat(auto-fit, minmax (50px, 1fr));
-  gap: 2px;
   background-color: black;
-  padding: auto;
+  padding-top: 25%;
   width: 75%;
   height: 75%;
 
