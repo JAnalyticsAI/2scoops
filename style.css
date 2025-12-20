@@ -56,7 +56,7 @@
   outline: 2px;
   color: black;
   padding: 14px 16px;
-  background-color: inherit;
+  background-color: gray;
   font-family: inherit; /* Important for vertical align on mobile phones */
   margin: 0; /* Important for vertical align on mobile phones */
 } 
