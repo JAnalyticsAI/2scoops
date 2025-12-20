@@ -1,11 +1,11 @@
 // Get the border of the game
 const appborder = document.getElementById("appborder");
-const canvas = document.getElementById("myCanvas");
+const canvas = document.getElementById("game-canvas");
 const ctx = canvas.getContext("2d");
 
 // Canvas Size
-canvas.width = appborder.innerWidth;
-canvas.height = appborder.innerHeight;
+canvas.width = canvas.width
+canvas.height = canvas.height
 
 // Set up cube properties
 let cubeSize = 25;
@@ -122,36 +122,3 @@ function gameLoop() {
   handleTouchEnd();
 
 }
-
-//Calling Functions
-gameLoop();
-
-// Board dimensions
-const rows = 5;
-const cols = 5;
-//Create game board dynamically
-const board = document.getElementById("gameBoard");
-for (let i = 0; i < rows; i++) {
-
-  for (let j = 0; j < cols; j++) {
-
-    const cell = document.createElement("div");
-    cell.classList.add("cell");
-    cell.textContent = `${i}, ${j}`; // Example cell content (Place other game objects here)
-    board.appendChild(cell);
-
-  }
-  
-}
-//Cell click event
-const cells = document.querySelectorAll(".cell");
-cells.forEach(cell => {
-
-  cell.addEventListener("click", () => {
-
-    //Handle cell click logic
-    console.log("Clicked cell:", cell.textContent);
-
-  });
-
-});
