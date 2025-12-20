@@ -72,6 +72,8 @@ function updateCubePosition() {
 
 }
 
+/* Touch Controls - Uncomment to enable touch controls
+
 let touchStartX = 0;
 let touchStartY = 0;
 let touchMoved = false;
@@ -111,16 +113,4 @@ canvas.addEventListener("touchstart", handleTouchStart);
 canvas.addEventListener("touchmove", handleTouchMove);
 canvas.addEventListener("touchend", handleTouchEnd);
 
-
-//Main game loop
-function gameLoop() {
-
-  /* clearCanvas(); */
-  drawCube();
-  requestAnimationFrame(gameLoop); // Call the game loop again for the next frame
-  /* updateCubePosition(); */
-  handleTouchStart();
-  handleTouchMove();
-  handleTouchEnd();
-
-}
+*/
