@@ -67,8 +67,9 @@
   bottom: 20px; /* Height of bottom app border */
   margin: auto;
   padding: auto;
-  height: auto;
-  width: auto;
+  height: 100%;
+  width: 100%;
+  min-height: 0;
 
 }
 
