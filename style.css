@@ -65,7 +65,6 @@
   padding: auto;
   height: 100%;
   width: 100%;
-  min-height: 0;
 
 }
 
@@ -80,5 +79,6 @@
   height: inherit; 
   width: inherit;
   background-color: white;
+  min-height: 0;
 
 }
