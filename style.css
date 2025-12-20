@@ -62,7 +62,7 @@
 
 #game-container{
   position: relative;
-  height: calc(100% - 70px); /* Adjust height to account for navbar and border thickness */
+  height: 100%;
   width: 100%;
 
 }
