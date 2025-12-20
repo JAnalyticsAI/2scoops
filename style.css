@@ -60,14 +60,10 @@
   margin: 0; /* Important for vertical align on mobile phones */
 } 
 
-#game-container{
+#game-canvas{
   position: fixed;
-  background-color: inherit;
+  background-color: white;
   border-style: solid;
   border-color: black;
-  padding-top: 25%;
-  padding-right: 25%;
-  width: 75%;
-  height: 75%;
 
 }
