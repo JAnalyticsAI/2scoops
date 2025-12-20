@@ -63,7 +63,7 @@
   position: relative;
   margin: auto;
   padding: auto;
-  height: 85%;
+  height: 85%; /* Lastest thing modofied; the empty height and width in HTML helped*/
   width: 100%;
   box-sizing: border-box;
 
