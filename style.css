@@ -61,6 +61,10 @@
 
 #game-container{
   position: absolute;
+  top: 50px; /* Height of navbar */
+  left: 20px; /* Width of left app border */
+  right: 20px; /* Width of right app border */
+  bottom: 20px; /* Height of bottom app border */
   margin: auto;
   padding: auto;
   height: calc(100% - 50px); /* Adjust height to account for navbar and app border*/
@@ -70,6 +74,10 @@
 
 #game-canvas{
   position: inherit;
+  top: inherit;
+  left: inherit;
+  right: inherit;
+  bottom: inherit;
   margin: inherit;
   padding: inherit;
   height: inherit; 
