@@ -62,7 +62,8 @@
 
 #game-container{
   position: relative;
-  margin-bottom: 20px;
+  margin: auto;
+  padding: auto;
   height: 100%;
   width: 100%;
 
@@ -70,7 +71,8 @@
 
 #game-canvas{
   position: relative;
-  margin-bottom: 20px;
+  margin: auto;
+  padding: auto;
   height: 100%; 
   width: 100%;
   background-color: white;
