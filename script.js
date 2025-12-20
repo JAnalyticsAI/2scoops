@@ -15,19 +15,19 @@ let cubeX = 15;
 let cubeY = 15;
 let cubeSpeed = 5;
 
+// Function to clear the canvas
+function clearCanvas() {
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+};
+
 //Draw the cube
 function drawCube() {
 
   ctx.fillStyle = "blue";
   ctx.fillRect(cubeX, cubeY, cubeSize, cubeSize);
   
-};
-
-// Function to clear the canvas
-function clearCanvas() {
-
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
 };
 
 // Function to resize canvas
@@ -72,7 +72,17 @@ function updateCubePosition() {
 
 }
 
+// Main game loop
+function gameLoop() {
 
+  clearCanvas();
+  updateCubePosition();
+  drawCube();
+  requestAnimationFrame(gameLoop);
+
+};
+
+gameLoop();
 
 
 
