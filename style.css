@@ -64,7 +64,7 @@
   position: absolute;
   margin: auto;
   padding: auto;
-  height: calc(100% - 40px); /* Adjust height to account for navbar and app border*/
+  height: 100%; /* Adjust height to account for navbar and app border*/
   width: 100%;
 
 }
