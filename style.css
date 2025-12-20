@@ -62,7 +62,9 @@
 
 #game-canvas{
   position: relative;
-  right: 200; 
+  margin: auto;
+  height: 100%; 
+  width: 100%;
   background-color: white;
   border-style: solid;
   border-color: black;
