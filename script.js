@@ -72,6 +72,14 @@ function updateCubePosition() {
 
 }
 
+
+
+
+
+
+
+
+
 /* Touch Controls - Uncomment to enable touch controls
 
 let touchStartX = 0;
