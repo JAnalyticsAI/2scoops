@@ -64,7 +64,7 @@
   position: relative;
   margin: auto;
   padding: auto;
-  height: 100%;
+  height: calc(100% - 70px); /* Adjust height to account for navbar and app border*/
   width: 100%;
 
 }
@@ -72,7 +72,6 @@
 #game-canvas{
   position: relative;
   margin: auto;
-  padding: auto;
   height: 100%; 
   width: 100%;
   background-color: white;
