@@ -6,8 +6,8 @@ const canvas = document.getElementById("game-canvas");
 const ctx = canvas.getContext("2d");
 
 // Canvas Size
-canvas.width = canvas.width
-canvas.height = canvas.height
+canvas.width = canvas.innerWidth
+canvas.height = canvas.innerHeight
 
 // Set up cube properties
 let cubeSize = 25;
