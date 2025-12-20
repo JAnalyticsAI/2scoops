@@ -22,18 +22,18 @@ function drawCube() {
 };
 
 // Function to clear the canvas
-/* function clearCanvas() {
+function clearCanvas() {
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-}; */
+};
 
 // Function to resize canvas
-/*function resizeCanvas() {
+function resizeCanvas() {
   
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
-}; */
+};
 
 // Event Listener for movable events
 
