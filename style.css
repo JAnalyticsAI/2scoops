@@ -60,6 +60,16 @@
   margin: 0; /* Important for vertical align on mobile phones */
 } 
 
+#game-container{
+  position: relative;
+  margin: auto;
+  height: calc(100% - 50px); /* Adjust height to account for navbar */
+  width: 100%;
+  border-style: solid;
+  border-color: black;
+  box-sizing: border-box; /* Include border in element's total width and height */
+}
+
 #game-canvas{
   position: relative;
   margin: auto;
