@@ -65,20 +65,17 @@
   padding: auto;
   height: 100%;
   width: 100%;
+  box-sizing: border-box;
 
 }
 
 #game-canvas{
   position: inherit;
-  top: inherit;
-  left: inherit;
-  right: inherit;
-  bottom: inherit;
   margin: inherit;
   padding: inherit;
   height: inherit; 
   width: inherit;
+  box-sizing: inherit;
   background-color: white;
-  box-sizing: border-box;
 
 }
