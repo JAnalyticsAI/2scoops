@@ -68,7 +68,7 @@
   bottom: 20px; /* Height of bottom app border */
   margin: auto;
   padding: auto;
-  height: calc(100% - 50px); /* Adjust height to account for navbar and app border*/
+  height: 100%;
   width: 100%;
   align-items: center;
   justify-content: center;
