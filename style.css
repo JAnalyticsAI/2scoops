@@ -61,7 +61,8 @@
 } 
 
 #game-canvas{
-  position: fixed;
+  position: relative;
+  right: 200; 
   background-color: white;
   border-style: solid;
   border-color: black;
