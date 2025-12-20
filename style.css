@@ -70,10 +70,10 @@
 }
 
 #game-canvas{
-  position: absolute;
-  margin: auto;
-  height: 100%; 
-  width: 100%;
+  position: inherit;
+  margin: inherit;
+  height: inherit; 
+  width: inherit;
   background-color: white;
 
 }
