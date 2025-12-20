@@ -79,6 +79,6 @@
   height: inherit; 
   width: inherit;
   background-color: white;
-  min-height: 0;
+  box-sizing: border-box;
 
 }
