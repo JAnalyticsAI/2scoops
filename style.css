@@ -60,8 +60,7 @@
 } 
 
 #game-container{
-  position: relative;
-  z-index: -1;
+  position: absolute;
   margin: auto;
   padding: auto;
   height: calc(100% - 50px); /* Adjust height to account for navbar and app border*/
@@ -71,7 +70,6 @@
 
 #game-canvas{
   position: inherit;
-  z-index: inherit;
   margin: inherit;
   padding: inherit;
   height: inherit; 
