@@ -60,7 +60,7 @@
 } 
 
 #game-container{
-  position: absolute;
+  position: relative;
   z-index: -1;
   margin: auto;
   padding: auto;
