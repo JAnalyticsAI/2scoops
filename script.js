@@ -16,7 +16,7 @@ let cubeSpeed = 5;
 //Draw the cube
 function drawCube() {
 
-  ctx.fillStyle = "rainbow";
+  ctx.fillStyle = "blue";
   ctx.fillRect(cubeX, cubeY, cubeSize, cubeSize);
   
 };
