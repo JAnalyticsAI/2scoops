@@ -60,7 +60,7 @@
 } 
 
 #game-container{
-  position: fixed;
+  position: absolute;
   margin: auto;
   padding: auto;
   height: calc(100% - 50px); /* Adjust height to account for navbar and app border*/
