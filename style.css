@@ -65,7 +65,7 @@
   margin: auto;
   height: calc(100% - 70px); /* Adjust height to account for navbar and border thickness */
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 60px;
 }
 
 #game-canvas{
