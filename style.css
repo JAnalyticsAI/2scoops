@@ -61,10 +61,6 @@
 
 #game-container{
   position: relative;
-  top: 50px; /* Height of navbar */
-  left: 20px; /* Width of left app border */
-  right: 20px; /* Width of right app border */
-  bottom: 20px; /* Height of bottom app border */
   margin: auto;
   padding: auto;
   height: 100%;
