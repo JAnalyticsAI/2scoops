@@ -1,6 +1,6 @@
 // Get the borders of the app and game container
 const appborder = document.getElementById("appborder");
-const gameborder = document.getElementById("game-container");
+/* const gameborder = document.getElementById("game-container"); */
 // Get the canvas and context
 const canvas = document.getElementById("game-canvas");
 const ctx = canvas.getContext("2d");
