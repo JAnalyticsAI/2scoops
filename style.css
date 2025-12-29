@@ -60,7 +60,7 @@
 } 
 
 #game-canvas{
-  position: absolute; /* CHECK RECENT DEPLOY BEFORE COMMITING NEW POSITION */
+  position: absolute;
   margin: auto;
   padding: auto;
   height: 100%; /* Lastest thing modofied; the empty height and width in HTML helped*/
