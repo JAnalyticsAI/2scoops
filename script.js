@@ -1,10 +1,9 @@
 // Get the borders of the app and game container
 const appborder = document.getElementById("appborder");
-/* const gameborder = document.getElementById("game-container"); */
 // Get the canvas and context
 const canvas = document.getElementById("game-canvas");
 const ctx = appborder.canvas.getContext("3d");
-const pausegame = document.getElementByClass("pausebtn");
+const pausegame = onckick(document.getElementByClass("pausebtn"));
 
 // Canvas Size
 canvas.width = window.innerWidth
@@ -26,7 +25,7 @@ function clearCanvas() {
 function pauseGame() {
 
   if (appborder.pausegame.clicked == true) { appborder.pausegame.createCanvas.fillStyle = "green";
-  } end;
+  } else { appborder.pausegame.deleteCanvas = "true"; };
 }
 
 //Draw the cube
