@@ -75,7 +75,7 @@ function gameLoop() {
 };
 
 gameLoop();
-
+pauseGame();
 
 
 
