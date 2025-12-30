@@ -7,6 +7,13 @@
 
  }
 
+ .start-menu {
+  position: relative;
+  height: 100%;
+  width: 100%;
+
+ }
+
  #app-border {
   position: fixed;
   top: 0;
@@ -61,6 +68,7 @@
 
 #game-canvas{
   position: absolute;
+  z-index: -1;
   margin: auto;
   padding: auto;
   height: 100%; /* Lastest thing modofied; the empty height and width in HTML helped*/
