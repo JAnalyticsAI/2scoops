@@ -34,7 +34,7 @@ function drawCube() {
   ctx.fillStyle = "red";
   ctx.fillRect(cubeX, cubeY, cubeSize, cubeSpeed);
   
-};
+}; drawCube();
 
 // Event Listener for movable events
 
@@ -75,7 +75,6 @@ function updateCubePosition() {
 function gameLoop() {
 
   clearCanvas();
-  drawCube();
   updateCubePosition();
 
 };
