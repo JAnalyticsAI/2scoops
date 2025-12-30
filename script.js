@@ -26,7 +26,7 @@ function clearCanvas() {
 function drawCube() {
 
   ctx.fillStyle = "red";
-  ctx.fillRect(cubeX, cubeY, cubeSize, cubeSize);
+  ctx.fillRect(cubeX, cubeY, cubeSize, cubeSpeed);
   
 };
 
