@@ -2,7 +2,7 @@
 const appborder = document.getElementById("appborder");
 // Get the canvas and context
 const canvas = document.getElementById("game-canvas");
-const ctx = appborder.canvas.getContext("3d");
+const ctx = canvas.getContext("3d");
 const pausegame = onckick(document.getElementByClass("pausebtn"));
 
 // Canvas Size
@@ -38,7 +38,7 @@ function drawCube() {
 
 // Event Listener for movable events
 
-document.addEventListener("keydown", function(event) {
+ctx.addEventListener("keys", function(event) {
 
   switch(event.key) {
     case "ArrowLeft":
