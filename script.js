@@ -25,7 +25,7 @@ function clearCanvas() {
 
 function pauseGame() {
 
-  if (pausegame.clicked == true) { pausegame.createCanvas.fillStyle = "green";
+  if (appborder.pausegame.clicked == true) { appborder.pausegame.createCanvas.fillStyle = "green";
   } end;
 }
 
