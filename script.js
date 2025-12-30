@@ -71,8 +71,6 @@ function gameLoop() {
   clearCanvas();
   drawCube();
   updateCubePosition();
-  drawCube();
-  requestAnimationFrame(gameLoop);
 
 };
 
