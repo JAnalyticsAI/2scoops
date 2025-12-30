@@ -25,7 +25,7 @@ function clearCanvas() {
 function pauseGame() {
 
   if (appborder.pausegame.clicked == true) { appborder.pausegame.createCanvas.fillStyle = "green";
-  } else { appborder.pausegame.deleteCanvas = "true"; };
+  } end;
 }
 
 //Draw the cube
