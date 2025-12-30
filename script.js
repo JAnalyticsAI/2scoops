@@ -30,13 +30,6 @@ function drawCube() {
   
 };
 
-// Function to resize canvas
-function resizeCanvas() {
-  
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-};
-
 // Event Listener for movable events
 
 document.addEventListener("keydown", function(event) {
@@ -76,6 +69,7 @@ function updateCubePosition() {
 function gameLoop() {
 
   clearCanvas();
+  drawCube();
   updateCubePosition();
   drawCube();
   requestAnimationFrame(gameLoop);
