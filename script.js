@@ -217,6 +217,30 @@ function resumeGame() {
   hidePauseOverlay();
 }
 
+// Ensure keyboard focus returns to the page after resuming
+function restoreKeyboardFocus() {
+  try {
+    // If any overlay child is focused, blur it
+    if (document.activeElement && document.activeElement !== document.body) {
+      // If focused element was inside the pause overlay, blur it
+      const overlay = document.getElementById('pause-overlay');
+      if (overlay && overlay.contains(document.activeElement)) {
+        document.activeElement.blur();
+      }
+    }
+    // Try to focus the body so `keydown` on window receives events
+    if (document.body && typeof document.body.focus === 'function') {
+      // Make body focusable if needed
+      if (document.body.tabIndex === -1) document.body.tabIndex = 0;
+      document.body.focus();
+    }
+    // Also try to focus the window
+    if (typeof window.focus === 'function') window.focus();
+  } catch (e) {
+    // ignore
+  }
+}
+
 // Export functions for inline onclick and attach pause button handler
 window.pauseGame = pauseGame;
 window.resumeGame = resumeGame;
