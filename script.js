@@ -20,8 +20,9 @@ function resizeCanvas() {
   const navHeight = nav ? nav.offsetHeight : 0;
 
   // Set canvas drawing buffer and CSS size to match the available area above the navbar
+  // Keep the canvas full size of the app container; we'll restrict movement below the navbar
   canvas.width = contentWidth;
-  canvas.height = Math.max(0, contentHeight - navHeight);
+  canvas.height = Math.max(0, contentHeight);
   canvas.style.width = canvas.width + 'px';
   canvas.style.height = canvas.height + 'px';
 
@@ -34,14 +35,10 @@ function resizeCanvas() {
   const canvasRect = canvas.getBoundingClientRect();
   const navRect = nav ? nav.getBoundingClientRect() : null;
   movementMinX = 0;
-  movementMinY = 0;
-  movementMaxX = canvas.width - cubeSize;
-  // movement area ends where the navbar begins (in page coords) relative to canvas top
-  if (navRect) {
-    movementMaxY = Math.max(0, navRect.top - canvasRect.top - cubeSize);
-  } else {
-    movementMaxY = canvas.height - cubeSize;
-  }
+  // Ensure the cube cannot move under the navbar: start Y at navbar height
+  movementMinY = nav ? nav.offsetHeight : 0;
+  movementMaxX = Math.max(0, canvas.width - cubeSize);
+  movementMaxY = Math.max(0, canvas.height - cubeSize);
 
   // ensure cube remains inside new bounds
   clampCube();
