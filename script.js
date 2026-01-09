@@ -232,19 +232,19 @@ function resumeGame() {
 // Ensure keyboard focus returns to the page after resuming
 function restoreKeyboardFocus() {
   try {
-    // If any overlay child is focused, blur it
+    // Force-blur any focused element (covers removed overlay button cases)
     if (document.activeElement && document.activeElement !== document.body) {
-      const overlay = document.getElementById('pause-overlay');
-      if (overlay && overlay.contains(document.activeElement)) {
-        document.activeElement.blur();
-      }
+      try { document.activeElement.blur(); } catch (e) {}
     }
-    // Make body focusable and focus it
+    // Make body focusable (if needed)
     if (document.body && typeof document.body.focus === 'function') {
       if (document.body.tabIndex === -1) document.body.tabIndex = 0;
-      document.body.focus();
     }
-    if (typeof window.focus === 'function') window.focus();
+    // Focus the canvas after the click event finishes so Edge registers keyboard input
+    setTimeout(() => {
+      try { canvas.focus(); } catch (e) {}
+      try { if (typeof window.focus === 'function') window.focus(); } catch (e) {}
+    }, 0);
   } catch (e) {
     // ignore
   }
