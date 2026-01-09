@@ -63,6 +63,19 @@ resizeCanvas();
 // Update on window resize (after cubeSize is defined)
 window.addEventListener("resize", resizeCanvas);
 
+// Center the cube within the allowed movement area (called on load)
+function centerCube() {
+  // ensure bounds are current
+  clampCube();
+  const cx = Math.round((movementMinX + movementMaxX) / 2);
+  const cy = Math.round((movementMinY + movementMaxY) / 2);
+  cubeX = Math.max(movementMinX, Math.min(movementMaxX, cx));
+  cubeY = Math.max(movementMinY, Math.min(movementMaxY, cy));
+}
+
+// Center once on initial load
+centerCube();
+
 // Input state
 const keys = { left: false, right: false, up: false, down: false };
 
