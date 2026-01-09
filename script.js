@@ -25,6 +25,24 @@ function resizeCanvas() {
   canvas.style.width = canvas.width + 'px';
   canvas.style.height = canvas.height + 'px';
 
+  // ensure canvas positioned at top-left of the app container
+  canvas.style.position = 'absolute';
+  canvas.style.left = '0px';
+  canvas.style.top = '0px';
+
+  // compute movement bounds in canvas-local coordinates
+  const canvasRect = canvas.getBoundingClientRect();
+  const navRect = nav ? nav.getBoundingClientRect() : null;
+  movementMinX = 0;
+  movementMinY = 0;
+  movementMaxX = canvas.width - cubeSize;
+  // movement area ends where the navbar begins (in page coords) relative to canvas top
+  if (navRect) {
+    movementMaxY = Math.max(0, navRect.top - canvasRect.top - cubeSize);
+  } else {
+    movementMaxY = canvas.height - cubeSize;
+  }
+
   // ensure cube remains inside new bounds
   clampCube();
 }
@@ -36,6 +54,15 @@ let cubeSize = 30;
 let cubeX = 30;
 let cubeY = 30;
 let cubeSpeed = 5;
+
+// Movement bounds (in canvas-local coordinates)
+let movementMinX = 0;
+let movementMinY = 0;
+let movementMaxX = 0;
+let movementMaxY = 0;
+
+// Recompute bounds now cube size is known
+resizeCanvas();
 
 // Input state
 const keys = { left: false, right: false, up: false, down: false };
@@ -106,8 +133,8 @@ function drawCube() {
 }
 
 function clampCube() {
-  cubeX = Math.max(0, Math.min(canvas.width - cubeSize, cubeX));
-  cubeY = Math.max(0, Math.min(canvas.height - cubeSize, cubeY));
+  cubeX = Math.max(movementMinX, Math.min(movementMaxX, cubeX));
+  cubeY = Math.max(movementMinY, Math.min(movementMaxY, cubeY));
 }
 
 function updateCubePosition() {
