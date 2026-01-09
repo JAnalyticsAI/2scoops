@@ -76,9 +76,8 @@ function ensurePauseOverlay() {
   if (document.getElementById('pause-overlay')) return;
   const overlay = document.createElement('div');
   overlay.id = 'pause-overlay';
-  overlay.style.display = 'none';
-  overlay.style.alignItems = 'center';
-  overlay.style.justifyContent = 'center';
+  // inline styles to avoid stylesheet ordering issues
+  overlay.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.35);z-index:2147483647;';
 
   const win = document.createElement('div');
   win.className = 'pause-window';
@@ -217,6 +216,12 @@ function resumeGame() {
   isPaused = false;
   hidePauseOverlay();
 }
+
+// Export functions for inline onclick and attach pause button handler
+window.pauseGame = pauseGame;
+window.resumeGame = resumeGame;
+const pauseBtn = document.querySelector('.pausebtn');
+if (pauseBtn) pauseBtn.addEventListener('click', (e) => { e.preventDefault(); pauseGame(); });
 
 // Mouse events for dragging the cube
 function getMousePos(evt) {
