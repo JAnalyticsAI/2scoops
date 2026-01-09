@@ -78,14 +78,42 @@
 } 
 
 
-
-/* #game-canvas{
-  position: inherit;
-  margin: inherit;
-  padding: inherit;
-  height: inherit; 
-  width: inherit;
-  box-sizing: inherit;
-  background-color: white;
-
-} */
+/* Pause overlay and window */
+#pause-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.35);
+  z-index: 9999;
+}
+.pause-window {
+  background: #fff;
+  color: #111;
+  padding: 18px 22px;
+  border-radius: 8px;
+  min-width: 220px;
+  text-align: center;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+}
+.pause-window h2 {
+  margin: 0 0 10px 0;
+  font-size: 20px;
+}
+.pause-window .pause-actions button {
+  margin: 6px 8px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #f3f3f3;
+  cursor: pointer;
+}
+.pause-window .pause-actions button.primary {
+  background: #3498db;
+  color: white;
+  border-color: #2980b9;
+}

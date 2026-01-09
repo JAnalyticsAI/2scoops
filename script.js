@@ -44,6 +44,57 @@ const keys = { left: false, right: false, up: false, down: false };
 let isDragging = false;
 let dragOffsetX = 0;
 let dragOffsetY = 0;
+// Pause state
+let isPaused = false;
+
+// Ensure pause overlay exists in DOM
+function ensurePauseOverlay() {
+  if (document.getElementById('pause-overlay')) return;
+  const overlay = document.createElement('div');
+  overlay.id = 'pause-overlay';
+  overlay.style.display = 'none';
+  overlay.style.alignItems = 'center';
+  overlay.style.justifyContent = 'center';
+
+  const win = document.createElement('div');
+  win.className = 'pause-window';
+  const title = document.createElement('h2');
+  title.textContent = 'Paused';
+  const actions = document.createElement('div');
+  actions.className = 'pause-actions';
+
+  const resumeBtn = document.createElement('button');
+  resumeBtn.className = 'primary';
+  resumeBtn.textContent = 'Resume';
+  resumeBtn.addEventListener('click', resumeGame);
+
+  const closeBtn = document.createElement('button');
+  closeBtn.textContent = 'Close';
+  closeBtn.addEventListener('click', () => {
+    // hide overlay but keep game paused unless resume pressed
+    overlay.style.display = 'none';
+  });
+
+  actions.appendChild(resumeBtn);
+  actions.appendChild(closeBtn);
+  win.appendChild(title);
+  win.appendChild(actions);
+  overlay.appendChild(win);
+  document.body.appendChild(overlay);
+}
+
+function showPauseOverlay() {
+  ensurePauseOverlay();
+  const overlay = document.getElementById('pause-overlay');
+  overlay.style.display = 'flex';
+  const resumeBtn = overlay.querySelector('button.primary');
+  if (resumeBtn) resumeBtn.focus();
+}
+
+function hidePauseOverlay() {
+  const overlay = document.getElementById('pause-overlay');
+  if (overlay) overlay.style.display = 'none';
+}
 
 function clearCanvas() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -60,6 +111,7 @@ function clampCube() {
 }
 
 function updateCubePosition() {
+  if (isPaused) return;
   if (!isDragging) {
     if (keys.left) cubeX -= cubeSpeed;
     if (keys.right) cubeX += cubeSpeed;
@@ -71,6 +123,13 @@ function updateCubePosition() {
 
 // Keyboard handlers
 window.addEventListener("keydown", (e) => {
+  // Allow toggling pause with Escape regardless of `isPaused`
+  if (e.key === 'Escape') {
+    if (isPaused) resumeGame(); else pauseGame();
+    return;
+  }
+  if (isPaused) return;
+
   switch (e.key) {
     case "ArrowLeft":
     case "a":
@@ -95,6 +154,7 @@ window.addEventListener("keydown", (e) => {
   }
 });
 window.addEventListener("keyup", (e) => {
+  if (isPaused) return;
   switch (e.key) {
     case "ArrowLeft":
     case "a":
@@ -118,6 +178,19 @@ window.addEventListener("keyup", (e) => {
       break;
   }
 });
+
+// Pause / resume functions
+function pauseGame() {
+  isPaused = true;
+  // clear movement inputs while paused
+  keys.left = keys.right = keys.up = keys.down = false;
+  showPauseOverlay();
+}
+
+function resumeGame() {
+  isPaused = false;
+  hidePauseOverlay();
+}
 
 // Mouse events for dragging the cube
 function getMousePos(evt) {
