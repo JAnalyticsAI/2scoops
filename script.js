@@ -3,10 +3,30 @@ const canvas = document.getElementById("game-canvas");
 if (!canvas) throw new Error('Canvas element with id "game-canvas" not found');
 const ctx = canvas.getContext("2d");
 
-// Canvas sizing
+// Canvas sizing: set canvas to the interior of `#app-border`, excluding the navbar height
 function resizeCanvas() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  const app = document.getElementById('app-border');
+  const nav = document.querySelector('.navbar');
+  if (!app) {
+    // fallback to full window
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    return;
+  }
+
+  // clientWidth/Height give the inner size excluding borders
+  const contentWidth = app.clientWidth;
+  const contentHeight = app.clientHeight;
+  const navHeight = nav ? nav.offsetHeight : 0;
+
+  // Set canvas drawing buffer and CSS size to match the available area above the navbar
+  canvas.width = contentWidth;
+  canvas.height = Math.max(0, contentHeight - navHeight);
+  canvas.style.width = canvas.width + 'px';
+  canvas.style.height = canvas.height + 'px';
+
+  // ensure cube remains inside new bounds
+  clampCube();
 }
 window.addEventListener("resize", resizeCanvas);
 resizeCanvas();
