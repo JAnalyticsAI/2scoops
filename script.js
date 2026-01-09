@@ -2,6 +2,8 @@
 const canvas = document.getElementById("game-canvas");
 if (!canvas) throw new Error('Canvas element with id "game-canvas" not found');
 const ctx = canvas.getContext("2d");
+// Make canvas focusable so we can restore keyboard focus to it
+canvas.tabIndex = 0;
 
 // Canvas sizing: set canvas to the interior of `#app-border`, excluding the navbar height
 function resizeCanvas() {
@@ -104,6 +106,11 @@ function ensurePauseOverlay() {
   win.appendChild(actions);
   overlay.appendChild(win);
   document.body.appendChild(overlay);
+  // focus resume button after it's in DOM (helps some browsers)
+  setTimeout(() => {
+    const resumeBtn = overlay.querySelector('button.primary');
+    if (resumeBtn) resumeBtn.focus();
+  }, 0);
 }
 
 function showPauseOverlay() {
@@ -116,7 +123,7 @@ function showPauseOverlay() {
 
 function hidePauseOverlay() {
   const overlay = document.getElementById('pause-overlay');
-  if (overlay) overlay.style.display = 'none';
+  if (overlay) overlay.remove();
 }
 
 function clearCanvas() {
@@ -215,6 +222,10 @@ function pauseGame() {
 function resumeGame() {
   isPaused = false;
   hidePauseOverlay();
+  // Focus the canvas explicitly so Edge receives keyboard events
+  try {
+    if (typeof canvas.focus === 'function') canvas.focus();
+  } catch (e) {}
   restoreKeyboardFocus();
 }
 
