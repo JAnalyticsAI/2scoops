@@ -28,3 +28,12 @@ if (sr != null) sr.sprite = sprite;
 Notes
 - If you import SVG and it doesn't show as Sprite, install the Unity Vector Graphics package from the Package Manager.
 - For crisp pixels, prefer importing a PNG at the desired resolution and set `Pixels Per Unit` appropriately.
+
+If you want a ready-made 30x30 PNG in this repo, run the included script from the repo root (requires ImageMagick):
+
+```bash
+chmod +x make_icecream_png.sh
+./make_icecream_png.sh
+```
+
+This writes `icecream_30.png` which you can copy into `Assets/Resources/` and use directly.
