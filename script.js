@@ -215,7 +215,30 @@ function pauseGame() {
 function resumeGame() {
   isPaused = false;
   hidePauseOverlay();
+  restoreKeyboardFocus();
 }
+
+// Ensure keyboard focus returns to the page after resuming
+function restoreKeyboardFocus() {
+  try {
+    // If any overlay child is focused, blur it
+    if (document.activeElement && document.activeElement !== document.body) {
+      const overlay = document.getElementById('pause-overlay');
+      if (overlay && overlay.contains(document.activeElement)) {
+        document.activeElement.blur();
+      }
+    }
+    // Make body focusable and focus it
+    if (document.body && typeof document.body.focus === 'function') {
+      if (document.body.tabIndex === -1) document.body.tabIndex = 0;
+      document.body.focus();
+    }
+    if (typeof window.focus === 'function') window.focus();
+  } catch (e) {
+    // ignore
+  }
+}
+
 
 // Ensure keyboard focus returns to the page after resuming
 function restoreKeyboardFocus() {
