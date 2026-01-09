@@ -94,8 +94,8 @@ function ensurePauseOverlay() {
   const closeBtn = document.createElement('button');
   closeBtn.textContent = 'Close';
   closeBtn.addEventListener('click', () => {
-    // hide overlay but keep game paused unless resume pressed
-    overlay.style.display = 'none';
+    // Close should also resume the game
+    resumeGame();
   });
 
   actions.appendChild(resumeBtn);
