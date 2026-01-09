@@ -46,8 +46,6 @@ function resizeCanvas() {
   // ensure cube remains inside new bounds
   clampCube();
 }
-window.addEventListener("resize", resizeCanvas);
-resizeCanvas();
 
 // Cube properties
 let cubeSize = 30;
@@ -63,6 +61,8 @@ let movementMaxY = 0;
 
 // Recompute bounds now cube size is known
 resizeCanvas();
+// Update on window resize (after cubeSize is defined)
+window.addEventListener("resize", resizeCanvas);
 
 // Input state
 const keys = { left: false, right: false, up: false, down: false };
@@ -133,6 +133,8 @@ function drawCube() {
 }
 
 function clampCube() {
+  if (!Number.isFinite(cubeX)) cubeX = movementMinX;
+  if (!Number.isFinite(cubeY)) cubeY = movementMinY;
   cubeX = Math.max(movementMinX, Math.min(movementMaxX, cubeX));
   cubeY = Math.max(movementMinY, Math.min(movementMaxY, cubeY));
 }

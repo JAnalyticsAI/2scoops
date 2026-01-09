@@ -37,7 +37,7 @@
 
 #game-canvas{
   position: absolute;
-  z-index: -1;
+  z-index: 0;
   margin: auto;
   padding: auto;
   height: 100%; /* Lastest thing modofied; the empty height and width in HTML helped*/
@@ -45,6 +45,9 @@
   box-sizing: border-box;
   background-color: white;
 }
+
+/* Ensure navbar sits above the canvas */
+.navbar { position: relative; z-index: 2; }
 
 /* Navbar container */
 .navbar {
