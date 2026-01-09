@@ -58,8 +58,6 @@ let movementMinY = 0;
 let movementMaxX = 0;
 let movementMaxY = 0;
 
-// Recompute bounds now cube size is known
-resizeCanvas();
 // Update on window resize (after cubeSize is defined)
 window.addEventListener("resize", () => { resizeCanvas(); centerCube(); });
 
@@ -73,7 +71,8 @@ function centerCube() {
   cubeY = Math.max(movementMinY, Math.min(movementMaxY, cy));
 }
 
-// Center once on initial load
+// Center once on initial load (ensure canvas and bounds are computed first)
+resizeCanvas();
 centerCube();
 
 // Input state
