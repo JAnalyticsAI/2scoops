@@ -32,10 +32,10 @@ window.addEventListener("resize", resizeCanvas);
 resizeCanvas();
 
 // Cube properties
-let cubeSize = 50;
-let cubeX = 50;
-let cubeY = 50;
-let cubeSpeed = 6;
+let cubeSize = 30;
+let cubeX = 30;
+let cubeY = 30;
+let cubeSpeed = 5;
 
 // Input state
 const keys = { left: false, right: false, up: false, down: false };
