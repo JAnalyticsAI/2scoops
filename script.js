@@ -1,131 +1,165 @@
-// Get the borders of the app and game container
-const appborder = document.getElementById("appborder");
-// Get the canvas and context
+// Canvas movable cube implementation (2D)
 const canvas = document.getElementById("game-canvas");
-const ctx = canvas.getContext("3d");
-const pausegame = onckick(document.getElementByClass("pausebtn"));
+if (!canvas) throw new Error('Canvas element with id "game-canvas" not found');
+const ctx = canvas.getContext("2d");
 
-// Canvas Size
-canvas.width = window.innerWidth
-canvas.height = window.innerHeight
+// Canvas sizing
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+window.addEventListener("resize", resizeCanvas);
+resizeCanvas();
 
-// Set up cube properties
-let cubeSize = 25;
-let cubeX = 15;
-let cubeY = 15;
-let cubeSpeed = 5;
+// Cube properties
+let cubeSize = 50;
+let cubeX = 50;
+let cubeY = 50;
+let cubeSpeed = 6;
 
-// Function to clear the canvas
+// Input state
+const keys = { left: false, right: false, up: false, down: false };
+
+// Mouse / touch drag state
+let isDragging = false;
+let dragOffsetX = 0;
+let dragOffsetY = 0;
+
 function clearCanvas() {
-
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-};
-
-function pauseGame() {
-
-  if (appborder.pausegame.clicked == true) { appborder.pausegame.createCanvas.fillStyle = "green";
-  } end;
 }
 
-//Draw the cube
 function drawCube() {
+  ctx.fillStyle = "#e74c3c";
+  ctx.fillRect(Math.round(cubeX), Math.round(cubeY), cubeSize, cubeSize);
+}
 
-  ctx.fillStyle = "red";
-  ctx.fillRect(cubeX, cubeY, cubeSize, cubeSpeed);
-  
-}; drawCube();
-
-// Event Listener for movable events
-
-ctx.addEventListener("keys", function(event) {
-
-  switch(event.key) {
-    case "ArrowLeft":
-      cubeX -= cubeSpeed;
-      break;
-    case "ArrowRight":
-      cubeX += cubeSpeed;
-      break;
-    case "ArrowUp":
-      cubeY -= cubeSpeed;
-      break;
-    case "ArrowDown":
-      cubeY += cubeSpeed;
-      break;
-  };
-
-}); 
-
-// Update cube position based on key input abd boundaries check
-function updateCubePosition() {
-
-  if (keys.left) cubeX -= cubeSpeed;
-  if (keys.right) cubeX += cubeSpeed;
-  if (keys.up) cubeY -= cubeSpeed;
-  if (keys.down) cubeY += cubeSpeed;
-
-  // Restrict cube movement within canvas boundaries
+function clampCube() {
   cubeX = Math.max(0, Math.min(canvas.width - cubeSize, cubeX));
   cubeY = Math.max(0, Math.min(canvas.height - cubeSize, cubeY));
-
 }
 
-// Main game loop
-function gameLoop() {
+function updateCubePosition() {
+  if (!isDragging) {
+    if (keys.left) cubeX -= cubeSpeed;
+    if (keys.right) cubeX += cubeSpeed;
+    if (keys.up) cubeY -= cubeSpeed;
+    if (keys.down) cubeY += cubeSpeed;
+    clampCube();
+  }
+}
 
+// Keyboard handlers
+window.addEventListener("keydown", (e) => {
+  switch (e.key) {
+    case "ArrowLeft":
+    case "a":
+    case "A":
+      keys.left = true;
+      break;
+    case "ArrowRight":
+    case "d":
+    case "D":
+      keys.right = true;
+      break;
+    case "ArrowUp":
+    case "w":
+    case "W":
+      keys.up = true;
+      break;
+    case "ArrowDown":
+    case "s":
+    case "S":
+      keys.down = true;
+      break;
+  }
+});
+window.addEventListener("keyup", (e) => {
+  switch (e.key) {
+    case "ArrowLeft":
+    case "a":
+    case "A":
+      keys.left = false;
+      break;
+    case "ArrowRight":
+    case "d":
+    case "D":
+      keys.right = false;
+      break;
+    case "ArrowUp":
+    case "w":
+    case "W":
+      keys.up = false;
+      break;
+    case "ArrowDown":
+    case "s":
+    case "S":
+      keys.down = false;
+      break;
+  }
+});
+
+// Mouse events for dragging the cube
+function getMousePos(evt) {
+  const rect = canvas.getBoundingClientRect();
+  return {
+    x: evt.clientX - rect.left,
+    y: evt.clientY - rect.top,
+  };
+}
+
+canvas.addEventListener("mousedown", (e) => {
+  const pos = getMousePos(e);
+  if (pos.x >= cubeX && pos.x <= cubeX + cubeSize && pos.y >= cubeY && pos.y <= cubeY + cubeSize) {
+    isDragging = true;
+    dragOffsetX = pos.x - cubeX;
+    dragOffsetY = pos.y - cubeY;
+    canvas.style.cursor = 'grabbing';
+  }
+});
+window.addEventListener("mousemove", (e) => {
+  if (!isDragging) return;
+  const pos = getMousePos(e);
+  cubeX = pos.x - dragOffsetX;
+  cubeY = pos.y - dragOffsetY;
+  clampCube();
+});
+window.addEventListener("mouseup", () => {
+  if (isDragging) {
+    isDragging = false;
+    canvas.style.cursor = 'default';
+  }
+});
+
+// Touch support (drag)
+canvas.addEventListener("touchstart", (e) => {
+  const t = e.touches[0];
+  const rect = canvas.getBoundingClientRect();
+  const x = t.clientX - rect.left;
+  const y = t.clientY - rect.top;
+  if (x >= cubeX && x <= cubeX + cubeSize && y >= cubeY && y <= cubeY + cubeSize) {
+    isDragging = true;
+    dragOffsetX = x - cubeX;
+    dragOffsetY = y - cubeY;
+  }
+}, { passive: true });
+canvas.addEventListener("touchmove", (e) => {
+  if (!isDragging) return;
+  const t = e.touches[0];
+  const rect = canvas.getBoundingClientRect();
+  cubeX = t.clientX - rect.left - dragOffsetX;
+  cubeY = t.clientY - rect.top - dragOffsetY;
+  clampCube();
+  e.preventDefault();
+}, { passive: false });
+canvas.addEventListener("touchend", () => { isDragging = false; });
+
+// Main loop
+function loop() {
   clearCanvas();
   updateCubePosition();
+  drawCube();
+  requestAnimationFrame(loop);
+}
 
-};
-
-gameLoop();
-pauseGame();
-
-
-
-
-
-
-/* Touch Controls - Uncomment to enable touch controls
-
-let touchStartX = 0;
-let touchStartY = 0;
-let touchMoved = false;
-
-function handleTouchStart(event) {
-
-  touchStartX = event.touches[0].clientX;
-  touchStartY = event.touches[0].clientY;
-  touchMoved = false;
-
-};
-
-function handleTouchMove(event) {
-
-  event.preventDefault();
-  let touchX = event.touches[0].clientX;
-  let touchY = event.touches[0].clientY;
-  let deltaX = touchX - touchStartX;
-  let deltaY = touchY - touchStartY;
-  cubeX += deltaX;
-  cubeY += deltaY;
-  touchStartX = touchX;
-  touchStartY = touchY;
-  touchMoved = true;
-
-};
-
-function handleTouchEnd() {
-
-  if (!touchMoved) {
-    //Handle tap event here is needed
-  };
-
-};
-
-canvas.addEventListener("touchstart", handleTouchStart);
-canvas.addEventListener("touchmove", handleTouchMove);
-canvas.addEventListener("touchend", handleTouchEnd);
-
-*/
+requestAnimationFrame(loop);
