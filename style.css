@@ -66,6 +66,8 @@
 .pausebtn {
   border-width: 4px;
   border-radius: 60px;
+  border-color: black;
+  border-style: solid;
   outline: 2px;
   color: black;
   padding: 14px 16px;
