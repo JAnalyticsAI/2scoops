@@ -109,7 +109,7 @@
   margin: 6px 8px;
   padding: 8px 12px;
   border-radius: 10px;
-  border: 2px solid #ccc;
+  border: 2px solid black;;
   background: #f3f3f3;
   color: #111;
   cursor: pointer;
@@ -117,9 +117,8 @@
 .pause-window .pause-actions button.primary {
   background: #f3f3f3;
   color: #111;
-  border-color: black;
   border-radius: 10px;
-  border: 2px solid #ccc;
+  border: 2px solid black;
 }
 
 /* Bubble-style trackers */
