@@ -229,6 +229,8 @@ function pauseGame() {
   // clear movement inputs while paused
   keys.left = keys.right = keys.up = keys.down = false;
   showPauseOverlay();
+  // pause the global timer if present
+  try { if (window.timerManager && typeof window.timerManager.pause === 'function') window.timerManager.pause(); } catch (e) {}
 }
 
 function resumeGame() {
@@ -239,6 +241,8 @@ function resumeGame() {
     if (typeof canvas.focus === 'function') canvas.focus();
   } catch (e) {}
   restoreKeyboardFocus();
+  // resume the global timer if present
+  try { if (window.timerManager && typeof window.timerManager.start === 'function') window.timerManager.start(); } catch (e) {}
 }
 
 // Ensure keyboard focus returns to the page after resuming
