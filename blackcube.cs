@@ -87,10 +87,10 @@ public static class BlackCubeEditorUtility
         {
             Undo.RecordObject(lc, "Assign floatingPrefab");
             lc.floatingPrefab = cube;
-            // ensure debug visibility settings
+            // ensure debug visibility settings — pick a visible default color
             Undo.RecordObject(lc, "Set debugHighlight");
             lc.debugHighlight = true;
-            lc.debugColor = Color.black;
+            lc.debugColor = Color.red;
             EditorUtility.SetDirty(lc);
         }
 

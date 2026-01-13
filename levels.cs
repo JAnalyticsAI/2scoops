@@ -66,21 +66,19 @@ public class LevelController : MonoBehaviour
 
     void SpawnFloating()
     {
-        // create a black cube primitive, half the default size
-        GameObject go = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        go.name = "BlackCube";
-        go.transform.localScale = Vector3.one * 0.5f; // half-size
-
-            // give it a fresh material and set to black with slight emission so it's visible
-            var rend = go.GetComponent<Renderer>();
-            if (rend != null)
-            {
-                rend.material = new Material(Shader.Find("Standard"));
-                rend.material.color = Color.black;
-                // enable emission so the black cube can still be seen on dark backgrounds
-                rend.material.EnableKeyword("_EMISSION");
-                rend.material.SetColor("_EmissionColor", Color.gray * 0.25f);
-            }
+        // choose prefab if provided, otherwise create a cube primitive
+        GameObject go;
+        if (floatingPrefab != null)
+        {
+            go = Instantiate(floatingPrefab);
+            go.name = floatingPrefab.name + "_Instance";
+        }
+        else
+        {
+            go = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            go.name = "BlackCube";
+            go.transform.localScale = Vector3.one * 0.5f; // half-size
+        }
 
         // pick a random 2D direction and spawn just off-screen opposite that direction
         Vector2 dir2 = Random.insideUnitCircle.normalized;
@@ -90,17 +88,26 @@ public class LevelController : MonoBehaviour
         Vector2 center = new Vector2(0.5f, 0.5f);
         float spawnDistance = 0.6f; // distance outside viewport to spawn
         Vector2 spawnVP = center - dir2 * spawnDistance;
-        Vector3 spawnPos = Camera.main.ViewportToWorldPoint(new Vector3(spawnVP.x, spawnVP.y, Camera.main.nearClipPlane + 2f));
-        // keep the Z returned by the camera conversion so the cube sits at the correct depth
-        go.transform.position = spawnPos;
+        Camera cam = Camera.main;
+        if (cam == null)
+        {
+            Debug.LogWarning("No Main Camera found — spawning at world origin offset.");
+            Vector3 spawnPosFallback = new Vector3(spawnVP.x * 10f, spawnVP.y * 10f, 0f);
+            go.transform.position = spawnPosFallback;
+        }
+        else
+        {
+            // place the object in front of the camera so it's visible
+            Vector3 spawnPos = cam.ViewportToWorldPoint(new Vector3(spawnVP.x, spawnVP.y, cam.nearClipPlane + 2f));
+            go.transform.position = spawnPos;
+        }
 
         var fo = go.GetComponent<FloatingObject>() ?? go.AddComponent<FloatingObject>();
         fo.speed = Random.Range(speedMin, speedMax);
         fo.direction = dir3.normalized;
         fo.wrapScreen = false; // objects travel on/off screen
 
-        // Make the cube visible: use an unlit shader if available. When debugging, use a bright
-        // highlight color so you can verify spawning/movement even on dark backgrounds.
+        // Make the object clearly visible for debugging: prefer Unlit/Color if present.
         var rend = go.GetComponent<Renderer>();
         if (rend != null)
         {
@@ -108,7 +115,14 @@ public class LevelController : MonoBehaviour
             if (s != null) rend.material = new Material(s);
             else rend.material = new Material(Shader.Find("Standard"));
 
-            if (debugHighlight) rend.material.color = debugColor;
+            // if debugHighlight is set, use that color; otherwise use black with slight emission
+            if (debugHighlight)
+            {
+                // default to a visible color if the debug color is nearly black
+                Color chosen = debugColor;
+                if (chosen.grayscale < 0.05f) chosen = Color.red;
+                rend.material.color = chosen;
+            }
             else
             {
                 rend.material.color = Color.black;
@@ -120,6 +134,6 @@ public class LevelController : MonoBehaviour
             rend.receiveShadows = false;
         }
 
-        Debug.Log($"Spawned BlackCube at VP={spawnVP} world={spawnPos} dir={fo.direction} speed={fo.speed}");
+        Debug.Log($"Spawned floating object at VP={spawnVP} world={go.transform.position} dir={fo.direction} speed={fo.speed}");
     }
 }
