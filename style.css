@@ -89,10 +89,13 @@
   z-index: 9999;
 }
 .pause-window {
-  background: #fff;
+  background: #5bbbff;
   color: #111;
   padding: 18px 22px;
   border-radius: 8px;
+  border-width:2px;
+  border-style: solid;
+  border-color: black;
   min-width: 220px;
   text-align: center;
   box-shadow: 0 8px 30px rgba(0,0,0,0.25);
@@ -104,14 +107,14 @@
 .pause-window .pause-actions button {
   margin: 6px 8px;
   padding: 8px 12px;
-  border-radius: 6px;
+  border-radius: 10px;
   border: 1px solid #ccc;
   background: #f3f3f3;
   cursor: pointer;
 }
 .pause-window .pause-actions button.primary {
   background: #f3f3f3;
-  color: #5bbbff;
+  color: #111;
   border-color: black;
   border-radius: 10px;
   border-width:2px;
