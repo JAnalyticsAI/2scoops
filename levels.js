@@ -2,10 +2,26 @@
 (function () {
   const STORAGE_KEY = 'twoscoops_level';
 
+  // Safe storage helpers — browsers with tracking prevention may block access
+  function safeGet(key) {
+    try {
+      return window.localStorage ? window.localStorage.getItem(key) : null;
+    } catch (e) {
+      return null;
+    }
+  }
+  function safeSet(key, value) {
+    try {
+      if (window.localStorage) window.localStorage.setItem(key, value);
+    } catch (e) {
+      // storage unavailable (tracking prevention); ignore
+    }
+  }
+
   const LevelManager = {
     current: 1,
     init() {
-      const stored = parseInt(localStorage.getItem(STORAGE_KEY), 10);
+      const stored = parseInt(safeGet(STORAGE_KEY), 10);
       this.current = Number.isInteger(stored) && stored > 0 ? stored : 1;
       this.updateDOM();
       window.levelManager = this;
@@ -13,7 +29,7 @@
     set(level) {
       const n = Math.max(1, Math.floor(Number(level) || 1));
       this.current = n;
-      localStorage.setItem(STORAGE_KEY, String(this.current));
+      safeSet(STORAGE_KEY, String(this.current));
       this.updateDOM();
       // Auto-reset and start the timer for the new level (if available)
       try {

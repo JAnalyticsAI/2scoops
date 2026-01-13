@@ -2,10 +2,26 @@
 (function () {
   const STORAGE_KEY = 'twoscoops_score';
 
+  // Safe storage helpers — browsers with tracking prevention may block access
+  function safeGet(key) {
+    try {
+      return window.localStorage ? window.localStorage.getItem(key) : null;
+    } catch (e) {
+      return null;
+    }
+  }
+  function safeSet(key, value) {
+    try {
+      if (window.localStorage) window.localStorage.setItem(key, value);
+    } catch (e) {
+      // storage unavailable (tracking prevention); ignore
+    }
+  }
+
   const ScoreManager = {
     score: 0,
     init() {
-      const stored = parseInt(localStorage.getItem(STORAGE_KEY), 10);
+      const stored = parseInt(safeGet(STORAGE_KEY), 10);
       this.score = Number.isInteger(stored) && stored >= 0 ? stored : 0;
       this.updateDOM();
       window.scoreManager = this;
@@ -13,7 +29,7 @@
     set(value) {
       const n = Math.max(0, Math.floor(Number(value) || 0));
       this.score = n;
-      localStorage.setItem(STORAGE_KEY, String(this.score));
+      safeSet(STORAGE_KEY, String(this.score));
       this.updateDOM();
     },
     add(value) {
