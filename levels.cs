@@ -97,9 +97,12 @@ public class LevelController : MonoBehaviour
         }
         else
         {
-            // place the object in front of the camera so it's visible
+            // place the object in front of the camera so it's visible — push forward along camera forward
             Vector3 spawnPos = cam.ViewportToWorldPoint(new Vector3(spawnVP.x, spawnVP.y, cam.nearClipPlane + 2f));
-            go.transform.position = spawnPos;
+            Vector3 finalPos = spawnPos + cam.transform.forward * 0.5f;
+            go.transform.position = finalPos;
+            // enlarge slightly so it's unmistakable during debug runs
+            go.transform.localScale = Vector3.one * 0.8f;
         }
 
         var fo = go.GetComponent<FloatingObject>() ?? go.AddComponent<FloatingObject>();
@@ -118,10 +121,10 @@ public class LevelController : MonoBehaviour
             // if debugHighlight is set, use that color; otherwise use black with slight emission
             if (debugHighlight)
             {
-                // default to a visible color if the debug color is nearly black
+                // choose a clearly visible color for debug (magenta override ensures visibility)
                 Color chosen = debugColor;
-                if (chosen.grayscale < 0.05f) chosen = Color.red;
-                rend.material.color = chosen;
+                if (chosen.grayscale < 0.05f) chosen = Color.magenta;
+                rend.material.color = Color.magenta; // force magenta so it's visible
             }
             else
             {
@@ -134,6 +137,16 @@ public class LevelController : MonoBehaviour
             rend.receiveShadows = false;
         }
 
-        Debug.Log($"Spawned floating object at VP={spawnVP} world={go.transform.position} dir={fo.direction} speed={fo.speed}");
+        // Frustum test to confirm visibility
+        if (cam != null && rend != null)
+        {
+            var planes = GeometryUtility.CalculateFrustumPlanes(cam);
+            bool inView = GeometryUtility.TestPlanesAABB(planes, rend.bounds);
+            Debug.Log($"Spawned floating object at VP={spawnVP} world={go.transform.position} dir={fo.direction} speed={fo.speed} inView={inView}");
+        }
+        else
+        {
+            Debug.Log($"Spawned floating object at VP={spawnVP} world={go.transform.position} dir={fo.direction} speed={fo.speed}");
+        }
     }
 }
