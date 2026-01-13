@@ -80,6 +80,11 @@ public static class BlackCubeEditorUtility
                 rend.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
                 rend.receiveShadows = false;
             }
+                // Add FloatingObject so the cube visibly moves in Play
+                var fo = cube.GetComponent<FloatingObject>() ?? cube.AddComponent<FloatingObject>();
+                fo.direction = Vector3.right;
+                fo.speed = 2f;
+                fo.wrapScreen = false;
         }
 
         // Wire the LevelController.floatingPrefab to the created cube (scene object is fine)
