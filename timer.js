@@ -43,8 +43,7 @@
           try {
             if (typeof this.onEnd === 'function') this.onEnd();
           } catch (e) {}
-          // default behavior: pause the game if possible
-          try { if (typeof window.pauseGame === 'function') window.pauseGame(); } catch (e) {}
+          // NOTE: we no longer pause the game by default when the timer ends.
         }
       }, 1000);
     },
