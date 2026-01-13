@@ -103,6 +103,7 @@
 .pause-window h2 {
   margin: 0 0 10px 0;
   font-size: 20px;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 .pause-window .pause-actions button {
   margin: 6px 8px;
