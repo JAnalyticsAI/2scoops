@@ -116,31 +116,7 @@
 }
 
 /* Bubble-style trackers */
-#leveltracker, #scoretracker {
-  font-family: 'Fredoka One', Arial, sans-serif;
-  font-size: 18px;
-  display: inline-block;
-  padding: 8px 14px;
-  margin: 4px 6px;
-  color: #111;
-  background: linear-gradient(180deg, #ffd6e8 0%, #ffc0dd 100%);
-  border-radius: 999px;
-  box-shadow: 0 6px 0 rgba(0,0,0,0.08), inset 0 -6px 12px rgba(255,255,255,0.6);
-}
-
-#level-number, #score-number {
-  font-family: 'Fredoka One', Arial, sans-serif;
-  font-size: 20px;
-  display: inline-block;
-  padding: 6px 10px;
-  margin-left: 8px;
-  color: #111;
-  background: linear-gradient(180deg, #fff7d6 0%, #ffdba3 100%);
-  border-radius: 999px;
-  box-shadow: 0 5px 0 rgba(0,0,0,0.08), inset 0 -5px 10px rgba(255,255,255,0.6);
-}
-
-#timer, #timer-count {
+#leveltracker, #scoretracker, #timer {
   font-family: 'Fredoka One', Arial, sans-serif;
   font-size: 18px;
   display: inline-block;
@@ -150,4 +126,16 @@
   background: linear-gradient(180deg, #d6f0ff 0%, #a3d9ff 100%);
   border-radius: 999px;
   box-shadow: 0 6px 0 rgba(0,0,0,0.08), inset 0 -6px 12px rgba(255,255,255,0.6);
+}
+
+#level-number, #score-number, #timer-count {
+  font-family: 'Fredoka One', Arial, sans-serif;
+  font-size: 20px;
+  display: inline-block;
+  padding: 6px 10px;
+  margin-left: 8px;
+  color: #111;
+  background: linear-gradient(180deg, #fff7d6 0%, #ffdba3 100%);
+  border-radius: 999px;
+  box-shadow: 0 5px 0 rgba(0,0,0,0.08), inset 0 -5px 10px rgba(255,255,255,0.6);
 }
