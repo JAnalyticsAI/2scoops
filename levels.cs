@@ -68,16 +68,20 @@ public class LevelController : MonoBehaviour
         go.name = "BlackCube";
         go.transform.localScale = Vector3.one * 0.5f; // half-size
 
-        // give it a fresh material and set to black
-        var rend = go.GetComponent<Renderer>();
-        if (rend != null)
-        {
-            rend.material = new Material(Shader.Find("Standard"));
-            rend.material.color = Color.black;
-        }
+            // give it a fresh material and set to black with slight emission so it's visible
+            var rend = go.GetComponent<Renderer>();
+            if (rend != null)
+            {
+                rend.material = new Material(Shader.Find("Standard"));
+                rend.material.color = Color.black;
+                // enable emission so the black cube can still be seen on dark backgrounds
+                rend.material.EnableKeyword("_EMISSION");
+                rend.material.SetColor("_EmissionColor", Color.gray * 0.25f);
+            }
 
         // pick a random 2D direction and spawn just off-screen opposite that direction
         Vector2 dir2 = Random.insideUnitCircle.normalized;
+            if (dir2.sqrMagnitude < 0.0001f) dir2 = Vector2.right; // avoid zero direction
         Vector3 dir3 = new Vector3(dir2.x, dir2.y, 0f);
 
         Vector2 center = new Vector2(0.5f, 0.5f);
@@ -91,5 +95,7 @@ public class LevelController : MonoBehaviour
         fo.speed = Random.Range(speedMin, speedMax);
         fo.direction = dir3.normalized;
         fo.wrapScreen = false; // objects travel on/off screen
+
+            Debug.Log($"Spawned BlackCube at VP={spawnVP} world={spawnPos} dir={fo.direction} speed={fo.speed}");
     }
 }
