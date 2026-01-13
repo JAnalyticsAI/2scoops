@@ -114,6 +114,7 @@
   color: #5bbbff;
   border-color: black;
   border-radius: 10px;
+  border-width:2px;
 }
 
 /* Bubble-style trackers */
