@@ -2,20 +2,27 @@
 (function () {
   const STORAGE_KEY = 'twoscoops_score';
 
-  // Safe storage helpers — browsers with tracking prevention may block access
+  // Safe storage helpers — browsers with tracking prevention may block access.
+  // Fall back to an in-memory store for the session when storage is blocked.
+  const _memoryStore = {};
   function safeGet(key) {
     try {
-      return window.localStorage ? window.localStorage.getItem(key) : null;
+      if (window.localStorage) return window.localStorage.getItem(key);
+      return _memoryStore.hasOwnProperty(key) ? _memoryStore[key] : null;
     } catch (e) {
-      return null;
+      return _memoryStore.hasOwnProperty(key) ? _memoryStore[key] : null;
     }
   }
   function safeSet(key, value) {
     try {
-      if (window.localStorage) window.localStorage.setItem(key, value);
+      if (window.localStorage) {
+        window.localStorage.setItem(key, value);
+        return;
+      }
     } catch (e) {
-      // storage unavailable (tracking prevention); ignore
+      // storage unavailable (tracking prevention); fall through to memory store
     }
+    _memoryStore[key] = value;
   }
 
   const ScoreManager = {
