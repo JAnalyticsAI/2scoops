@@ -112,7 +112,29 @@ function ensurePauseOverlay() {
     resumeGame();
   });
 
+  // Retry: reset current level state (timer + cube position) and resume
+  const retryBtn = document.createElement('button');
+  retryBtn.textContent = 'Retry (Current Level)';
+  retryBtn.addEventListener('click', () => {
+    try { if (window.timerManager && typeof window.timerManager.reset === 'function') window.timerManager.reset(); } catch (e) {}
+    try { if (typeof window.centerCube === 'function') window.centerCube(); } catch (e) {}
+    try { if (typeof resumeGame === 'function') resumeGame(); } catch (e) {}
+  });
+
+  // Restart: reset to level 1, clear score, reset timer, center cube, and resume
+  const restartBtn = document.createElement('button');
+  restartBtn.textContent = 'Restart';
+  restartBtn.addEventListener('click', () => {
+    try { if (window.levelManager && typeof window.levelManager.reset === 'function') window.levelManager.reset(); } catch (e) {}
+    try { if (window.scoreManager && typeof window.scoreManager.reset === 'function') window.scoreManager.reset(); } catch (e) {}
+    try { if (window.timerManager && typeof window.timerManager.reset === 'function') window.timerManager.reset(); } catch (e) {}
+    try { if (typeof window.centerCube === 'function') window.centerCube(); } catch (e) {}
+    try { if (typeof resumeGame === 'function') resumeGame(); } catch (e) {}
+  });
+
   actions.appendChild(resumeBtn);
+  actions.appendChild(retryBtn);
+  actions.appendChild(restartBtn);
   actions.appendChild(closeBtn);
   win.appendChild(title);
   win.appendChild(actions);
