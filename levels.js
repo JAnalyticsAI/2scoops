@@ -15,6 +15,15 @@
       this.current = n;
       localStorage.setItem(STORAGE_KEY, String(this.current));
       this.updateDOM();
+      // Auto-reset and start the timer for the new level (if available)
+      try {
+        if (window.timerManager) {
+          if (typeof window.timerManager.reset === 'function') window.timerManager.reset();
+          if (typeof window.timerManager.start === 'function') window.timerManager.start();
+        }
+      } catch (e) {
+        // ignore timer errors
+      }
     },
     next() { this.set(this.current + 1); },
     prev() { this.set(Math.max(1, this.current - 1)); },
