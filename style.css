@@ -110,8 +110,8 @@
   cursor: pointer;
 }
 .pause-window .pause-actions button.primary {
-  background: #3498db;
-  color: #d6e2ff;
+  background: #f3f3f3;
+  color: #5bbbff;
   border-color: #2980b9;
 }
 
@@ -123,7 +123,7 @@
   padding: 8px 14px;
   margin: 4px 6px;
   color: #111;
-  background: linear-gradient(180deg, #d6f0ff 0%, #a3d9ff 100%);
+  background: linear-gradient(180deg, #d6f0ff 0%, #5bbbff 100%);
   border-radius: 999px;
   box-shadow: 0 6px 0 rgba(0,0,0,0.08), inset 0 -6px 12px rgba(255,255,255,0.6);
 }
@@ -135,7 +135,7 @@
   padding: 6px 10px;
   margin-left: 8px;
   color: #111;
-  background: linear-gradient(180deg, #fff7d6 0%, #ffdba3 100%);
+  background: linear-gradient(180deg, #fedb4c 0%, #ffa514 100%);
   border-radius: 999px;
   box-shadow: 0 5px 0 rgba(0,0,0,0.08), inset 0 -5px 10px rgba(255,255,255,0.6);
 }
