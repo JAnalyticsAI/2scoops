@@ -105,7 +105,7 @@
   font-size: 40px;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
-.pause-window .pause-actions button {
+.pause-window .pause-actions button, .level-complete-window .level-actions button {
   margin: 6px 8px;
   padding: 8px 12px;
   border-radius: 10px;
