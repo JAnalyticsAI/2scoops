@@ -111,6 +111,7 @@
   border-radius: 10px;
   border: 2px solid #ccc;
   background: #f3f3f3;
+  color: #111;
   cursor: pointer;
 }
 .pause-window .pause-actions button.primary {
