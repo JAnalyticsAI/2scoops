@@ -3,7 +3,7 @@ using UnityEngine;
 public class FloatingObject : MonoBehaviour
 {
     public float speed = 2f;
-    public Vector2 direction = Vector2.right; // set to Vector2.left to go left
+    public Vector3 direction = Vector3.right;
     public bool wrapScreen = true;
 
     void Start()
@@ -47,6 +47,8 @@ public class LevelController : MonoBehaviour
     void Start()
     {
         timer = spawnInterval * 0.5f;
+        // start with one black cube immediately
+        SpawnFloating();
     }
 
     void Update()
@@ -61,18 +63,33 @@ public class LevelController : MonoBehaviour
 
     void SpawnFloating()
     {
-        if (floatingPrefab == null) return;
+        // create a black cube primitive, half the default size
+        GameObject go = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        go.name = "BlackCube";
+        go.transform.localScale = Vector3.one * 0.5f; // half-size
 
-        float yViewport = Random.Range(spawnYRange.x, spawnYRange.y);
-        float spawnX = spawnFromLeft ? -0.05f : 1.05f; // slightly off-screen
-        Vector3 spawnPos = Camera.main.ViewportToWorldPoint(new Vector3(spawnX, yViewport, Camera.main.nearClipPlane + 2f));
+        // give it a fresh material and set to black
+        var rend = go.GetComponent<Renderer>();
+        if (rend != null)
+        {
+            rend.material = new Material(Shader.Find("Standard"));
+            rend.material.color = Color.black;
+        }
+
+        // pick a random 2D direction and spawn just off-screen opposite that direction
+        Vector2 dir2 = Random.insideUnitCircle.normalized;
+        Vector3 dir3 = new Vector3(dir2.x, dir2.y, 0f);
+
+        Vector2 center = new Vector2(0.5f, 0.5f);
+        float spawnDistance = 0.6f; // distance outside viewport to spawn
+        Vector2 spawnVP = center - dir2 * spawnDistance;
+        Vector3 spawnPos = Camera.main.ViewportToWorldPoint(new Vector3(spawnVP.x, spawnVP.y, Camera.main.nearClipPlane + 2f));
         spawnPos.z = 0f;
+        go.transform.position = spawnPos;
 
-        GameObject go = Instantiate(floatingPrefab, spawnPos, Quaternion.identity);
         var fo = go.GetComponent<FloatingObject>() ?? go.AddComponent<FloatingObject>();
-
         fo.speed = Random.Range(speedMin, speedMax);
-        fo.direction = spawnFromLeft ? Vector2.right : Vector2.left;
-        fo.wrapScreen = false; // set true if you want wrapping
+        fo.direction = dir3.normalized;
+        fo.wrapScreen = false; // objects travel on/off screen
     }
 }
