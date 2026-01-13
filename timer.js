@@ -9,10 +9,8 @@
     return `${mm}:${ss.toString().padStart(2, '0')}`;
   }
 
-/* onEnd handler to show "Level Complete" after timer hits 0 */
-  /* function defaultOnEnd() {
+  function defaultOnEnd() {
     // Show a level-complete overlay with actions: Next, Retry, Close
-    try { if (typeof window.pauseGame === 'function') window.pauseGame(); } catch (e) {}
 
     let overlay = document.getElementById('level-complete-overlay');
     if (!overlay) {
@@ -83,7 +81,7 @@
       const ov = document.getElementById('level-complete-overlay');
       if (ov) ov.style.display = 'none';
     }
-  } */
+  }
 
   const Timer = {
     startSeconds: 120,
