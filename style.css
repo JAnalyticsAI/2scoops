@@ -112,7 +112,7 @@
 .pause-window .pause-actions button.primary {
   background: #f3f3f3;
   color: #5bbbff;
-  border-color: #2980b9;
+  border-color: black;
 }
 
 /* Bubble-style trackers */
