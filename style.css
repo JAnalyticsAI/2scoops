@@ -75,8 +75,8 @@
 } 
 
 
-/* Pause overlay and window */
-#pause-overlay {
+/* Pause & level overlay and window */
+#pause-overlay, .level-complete-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -88,7 +88,7 @@
   background: rgba(0,0,0,0.35);
   z-index: 9999;
 }
-.pause-window {
+.pause-window, .level-complete-window{
   background: #5bbbff;
   color: #111;
   padding: 18px 22px;
