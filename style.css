@@ -43,7 +43,7 @@
   height: 100%; /* Lastest thing modofied; the empty height and width in HTML helped*/
   width: 100%;
   box-sizing: border-box;
-  background-color: white;
+  background-color: aqua;
 }
 
 /* Ensure navbar sits above the canvas */
