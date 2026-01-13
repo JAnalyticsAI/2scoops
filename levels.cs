@@ -41,6 +41,9 @@ public class LevelController : MonoBehaviour
     public float speedMin = 1f;
     public float speedMax = 4f;
     public bool spawnFromLeft = true; // spawn off-screen left and move right
+    // Debug helpers to make spawned cubes visible if you can't see them
+    public bool debugHighlight = true;
+    public Color debugColor = Color.red;
 
     float timer;
 
@@ -88,7 +91,7 @@ public class LevelController : MonoBehaviour
         float spawnDistance = 0.6f; // distance outside viewport to spawn
         Vector2 spawnVP = center - dir2 * spawnDistance;
         Vector3 spawnPos = Camera.main.ViewportToWorldPoint(new Vector3(spawnVP.x, spawnVP.y, Camera.main.nearClipPlane + 2f));
-        spawnPos.z = 0f;
+        // keep the Z returned by the camera conversion so the cube sits at the correct depth
         go.transform.position = spawnPos;
 
         var fo = go.GetComponent<FloatingObject>() ?? go.AddComponent<FloatingObject>();
@@ -96,6 +99,27 @@ public class LevelController : MonoBehaviour
         fo.direction = dir3.normalized;
         fo.wrapScreen = false; // objects travel on/off screen
 
-            Debug.Log($"Spawned BlackCube at VP={spawnVP} world={spawnPos} dir={fo.direction} speed={fo.speed}");
+        // Make the cube visible: use an unlit shader if available. When debugging, use a bright
+        // highlight color so you can verify spawning/movement even on dark backgrounds.
+        var rend = go.GetComponent<Renderer>();
+        if (rend != null)
+        {
+            Shader s = Shader.Find("Unlit/Color");
+            if (s != null) rend.material = new Material(s);
+            else rend.material = new Material(Shader.Find("Standard"));
+
+            if (debugHighlight) rend.material.color = debugColor;
+            else
+            {
+                rend.material.color = Color.black;
+                rend.material.EnableKeyword("_EMISSION");
+                rend.material.SetColor("_EmissionColor", Color.gray * 0.25f);
+            }
+
+            rend.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            rend.receiveShadows = false;
+        }
+
+        Debug.Log($"Spawned BlackCube at VP={spawnVP} world={spawnPos} dir={fo.direction} speed={fo.speed}");
     }
 }
