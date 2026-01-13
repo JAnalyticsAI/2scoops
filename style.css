@@ -62,11 +62,6 @@
 
 }
   
-/* P tags in navbar */
-.navbar p {
-  text-align: center;
-} 
-  
 /* Pause button */
 .pausebtn {
   border-width: 2px;
