@@ -44,6 +44,8 @@ function resizeCanvas() {
 
   // ensure cube remains inside new bounds
   clampCube();
+  // ensure black cube remains inside new bounds
+  try { clampBlackCube(); } catch (e) {}
 }
 
 // Cube properties
@@ -51,6 +53,11 @@ let cubeSize = 30;
 let cubeX = 30;
 let cubeY = 30;
 let cubeSpeed = 5;
+
+// Black cube properties (75% smaller -> 25% size)
+let blackCubeSize = Math.max(1, Math.round(cubeSize * 0.25));
+let blackCubeX = 0;
+let blackCubeY = 0;
 
 // Movement bounds (in canvas-local coordinates)
 let movementMinX = 0;
@@ -74,6 +81,12 @@ function centerCube() {
 // Center once on initial load (ensure canvas and bounds are computed first)
 resizeCanvas();
 centerCube();
+
+// Place the black cube at the top-left of the allowed movement area on load
+blackCubeSize = Math.max(1, Math.round(cubeSize * 0.25));
+blackCubeX = movementMinX;
+blackCubeY = movementMinY;
+clampBlackCube();
 
 // Input state
 const keys = { left: false, right: false, up: false, down: false };
@@ -169,11 +182,23 @@ function drawCube() {
   ctx.fillRect(Math.round(cubeX), Math.round(cubeY), cubeSize, cubeSize);
 }
 
+function drawBlackCube() {
+  ctx.fillStyle = "#000000";
+  ctx.fillRect(Math.round(blackCubeX), Math.round(blackCubeY), blackCubeSize, blackCubeSize);
+}
+
 function clampCube() {
   if (!Number.isFinite(cubeX)) cubeX = movementMinX;
   if (!Number.isFinite(cubeY)) cubeY = movementMinY;
   cubeX = Math.max(movementMinX, Math.min(movementMaxX, cubeX));
   cubeY = Math.max(movementMinY, Math.min(movementMaxY, cubeY));
+}
+
+function clampBlackCube() {
+  if (!Number.isFinite(blackCubeX)) blackCubeX = movementMinX;
+  if (!Number.isFinite(blackCubeY)) blackCubeY = movementMinY;
+  blackCubeX = Math.max(movementMinX, Math.min(movementMaxX, blackCubeX));
+  blackCubeY = Math.max(movementMinY, Math.min(movementMaxY, blackCubeY));
 }
 
 function updateCubePosition() {
@@ -378,6 +403,8 @@ canvas.addEventListener("touchend", () => { isDragging = false; });
 function loop() {
   clearCanvas();
   updateCubePosition();
+  // draw the static black cube (top-left) before the main red cube
+  drawBlackCube();
   drawCube();
   requestAnimationFrame(loop);
 }
