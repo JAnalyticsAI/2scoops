@@ -55,7 +55,7 @@ let cubeY = 30;
 let cubeSpeed = 5;
 
 // Black cube properties (75% smaller -> 25% size)
-let blackCubeSize = Math.max(1, Math.round(cubeSize * 0.25));
+let blackCubeSize = Math.max(6, Math.round(cubeSize * 0.25));
 let blackCubeX = 0;
 let blackCubeY = 0;
 
@@ -184,7 +184,13 @@ function drawCube() {
 
 function drawBlackCube() {
   ctx.fillStyle = "#000000";
-  ctx.fillRect(Math.round(blackCubeX), Math.round(blackCubeY), blackCubeSize, blackCubeSize);
+  const x = Math.round(blackCubeX);
+  const y = Math.round(blackCubeY);
+  ctx.fillRect(x, y, blackCubeSize, blackCubeSize);
+  // add a contrasting stroke so the square is visible against any background
+  ctx.strokeStyle = '#ffffff';
+  ctx.lineWidth = 1;
+  ctx.strokeRect(x + 0.5, y + 0.5, blackCubeSize - 1, blackCubeSize - 1);
 }
 
 function clampCube() {
@@ -407,9 +413,9 @@ canvas.addEventListener("touchend", () => { isDragging = false; });
 function loop() {
   clearCanvas();
   updateCubePosition();
-  // draw the static black cube (top-left) before the main red cube
-  drawBlackCube();
+  // update and draw the main red cube first, then the black cube on top
   drawCube();
+  drawBlackCube();
   requestAnimationFrame(loop);
 }
 
