@@ -84,8 +84,8 @@ centerCube();
 
 // Place the black cube at the top-left of the allowed movement area on load
 blackCubeSize = Math.max(1, Math.round(cubeSize * 0.25));
-blackCubeX = movementMinX;
-blackCubeY = movementMinY;
+blackCubeX = 0;
+blackCubeY = 0;
 clampBlackCube();
 
 // Input state
@@ -195,10 +195,12 @@ function clampCube() {
 }
 
 function clampBlackCube() {
-  if (!Number.isFinite(blackCubeX)) blackCubeX = movementMinX;
-  if (!Number.isFinite(blackCubeY)) blackCubeY = movementMinY;
-  blackCubeX = Math.max(movementMinX, Math.min(movementMaxX, blackCubeX));
-  blackCubeY = Math.max(movementMinY, Math.min(movementMaxY, blackCubeY));
+  if (!Number.isFinite(blackCubeX)) blackCubeX = 0;
+  if (!Number.isFinite(blackCubeY)) blackCubeY = 0;
+  const maxX = Math.max(0, canvas.width - blackCubeSize);
+  const maxY = Math.max(0, canvas.height - blackCubeSize);
+  blackCubeX = Math.max(0, Math.min(maxX, blackCubeX));
+  blackCubeY = Math.max(0, Math.min(maxY, blackCubeY));
 }
 
 function updateCubePosition() {
