@@ -125,6 +125,26 @@ function notifyUnityBlackCube() {
 // try one-time notify after initialization
 setTimeout(notifyUnityBlackCube, 200);
 
+// Continuous sync state: only send when position changes enough to avoid spamming
+let __lastSentNx = null;
+let __lastSentNy = null;
+const __sendThreshold = 0.0005; // normalized units (~0.05% of canvas)
+
+function sendBlackCubeIfMoved() {
+  if (!canvas || !canvas.width || !canvas.height) return;
+  const nx = (blackCubeX) / canvas.width;
+  const ny = (blackCubeY) / canvas.height; // top-origin
+  if (
+    __lastSentNx === null || __lastSentNy === null ||
+    Math.abs(nx - __lastSentNx) > __sendThreshold ||
+    Math.abs(ny - __lastSentNy) > __sendThreshold
+  ) {
+    sendToUnity('InitialBlackCube', 'SetPositionFromNormalized', `${nx},${ny}`);
+    __lastSentNx = nx;
+    __lastSentNy = ny;
+  }
+}
+
 // Input state
 const keys = { left: false, right: false, up: false, down: false };
 
