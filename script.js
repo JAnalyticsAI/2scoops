@@ -46,6 +46,8 @@ function resizeCanvas() {
   clampCube();
   // ensure black cube remains inside new bounds
   try { clampBlackCube(); } catch (e) {}
+  // update Unity with new normalized black cube position (if present)
+  try { notifyUnityBlackCube(); } catch (e) {}
 }
 
 // Cube properties
@@ -89,6 +91,39 @@ blackCubeY = movementMinY;
 clampBlackCube();
 // Debug: log initial black cube values
 console.log('BLACK CUBE INIT', { blackCubeX, blackCubeY, blackCubeSize, movementMinX, movementMinY, canvasWidth: canvas.width, canvasHeight: canvas.height });
+
+// Helper to send messages to a Unity WebGL instance (robust to several loader names)
+function sendToUnity(objectName, methodName, payload) {
+  try {
+    if (window.unityInstance && typeof window.unityInstance.SendMessage === 'function') {
+      window.unityInstance.SendMessage(objectName, methodName, payload);
+      return true;
+    }
+    if (typeof SendMessage === 'function') {
+      SendMessage(objectName, methodName, payload);
+      return true;
+    }
+    if (window.Module && typeof window.Module.SendMessage === 'function') {
+      window.Module.SendMessage(objectName, methodName, payload);
+      return true;
+    }
+  } catch (e) {}
+  // not found — leave a debug trace
+  console.log('Unity SendMessage not available', objectName, methodName, payload);
+  return false;
+}
+
+// Inform Unity about the black cube initial location (normalized coords)
+function notifyUnityBlackCube() {
+  if (!canvas || !canvas.width || !canvas.height) return;
+  const nx = (blackCubeX) / canvas.width;
+  const ny = (blackCubeY) / canvas.height; // top-origin
+  sendToUnity('InitialBlackCube', 'SetPositionFromNormalized', `${nx},${ny}`);
+  sendToUnity('InitialBlackCube', 'SetActive', 'true');
+}
+
+// try one-time notify after initialization
+setTimeout(notifyUnityBlackCube, 200);
 
 // Input state
 const keys = { left: false, right: false, up: false, down: false };

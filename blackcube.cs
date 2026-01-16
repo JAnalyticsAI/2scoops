@@ -85,6 +85,8 @@ public static class BlackCubeEditorUtility
                 fo.direction = Vector3.right;
                 fo.speed = 2f;
                 fo.wrapScreen = false;
+                // add runtime bridge for JS <-> Unity messaging
+                var bridge = cube.GetComponent<InitialBlackCubeBridge>() ?? cube.AddComponent<InitialBlackCubeBridge>();
         }
 
         // Wire the LevelController.floatingPrefab to the created cube (scene object is fine)
@@ -158,9 +160,62 @@ public class SceneBootstrapper : MonoBehaviour
             }
 
             Debug.Log("Spawned InitialBlackCube off-screen.");
+            // attach bridge so JS can find and control this cube when running WebGL
+            var bridge = cube.GetComponent<InitialBlackCubeBridge>() ?? cube.AddComponent<InitialBlackCubeBridge>();
         }
 
         // Remove this bootstrapper component after setup to avoid repeated runs.
         Destroy(this);
+    }
+}
+
+// Bridge component that exposes a few small public methods which can be
+// invoked from JavaScript using Unity WebGL's SendMessage API.
+public class InitialBlackCubeBridge : MonoBehaviour
+{
+    // Activate/deactivate the cube. Accepts "true"/"false" or "1"/"0".
+    public void SetActive(string flag)
+    {
+        bool active = flag == "1" || flag.Equals("true", System.StringComparison.OrdinalIgnoreCase);
+        gameObject.SetActive(active);
+        Debug.Log($"InitialBlackCubeBridge.SetActive -> {active}");
+    }
+
+    // Receive normalized canvas coordinates from JS as "nx,ny" where (0,0)
+    // is top-left in the browser canvas. Converts to Unity viewport coords
+    // (0..1, bottom-left origin) and positions the cube in world space.
+    public void SetPositionFromNormalized(string coords)
+    {
+        if (string.IsNullOrEmpty(coords)) return;
+        var parts = coords.Split(',');
+        if (parts.Length < 2) return;
+        if (!float.TryParse(parts[0], out float nx)) return;
+        if (!float.TryParse(parts[1], out float ny)) return;
+
+        Camera cam = Camera.main;
+        if (cam == null)
+        {
+            Debug.LogWarning("InitialBlackCubeBridge: no Main Camera found.");
+            return;
+        }
+
+        // JS normalized Y is top-origin; Unity viewport Y is bottom-origin.
+        float vx = Mathf.Clamp01(nx);
+        float vy = Mathf.Clamp01(1f - ny);
+        Vector3 vp = new Vector3(vx, vy, cam.nearClipPlane + 2f);
+        Vector3 world = cam.ViewportToWorldPoint(vp);
+        transform.position = world;
+        Debug.Log($"InitialBlackCubeBridge.SetPositionFromNormalized -> nx={nx}, ny={ny}, world={world}");
+    }
+
+    // Set the cube color with an HTML color string like "#ff0000".
+    public void SetColor(string htmlColor)
+    {
+        if (string.IsNullOrEmpty(htmlColor)) return;
+        if (ColorUtility.TryParseHtmlString(htmlColor, out Color c))
+        {
+            var rend = GetComponent<Renderer>();
+            if (rend != null) rend.material.color = c;
+        }
     }
 }
