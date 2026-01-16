@@ -87,6 +87,8 @@ blackCubeSize = Math.max(1, Math.round(cubeSize * 0.25));
 blackCubeX = movementMinX;
 blackCubeY = movementMinY;
 clampBlackCube();
+// Debug: log initial black cube values
+console.log('BLACK CUBE INIT', { blackCubeX, blackCubeY, blackCubeSize, movementMinX, movementMinY, canvasWidth: canvas.width, canvasHeight: canvas.height });
 
 // Input state
 const keys = { left: false, right: false, up: false, down: false };
@@ -416,6 +418,12 @@ function loop() {
   // update and draw the main red cube first, then the black cube on top
   drawCube();
   drawBlackCube();
+  // Debug marker + continuous log (throttled via frame counter)
+  if (!window.__blackDebugCounter) window.__blackDebugCounter = 0;
+  window.__blackDebugCounter++;
+  if (window.__blackDebugCounter % 60 === 0) {
+    console.log('BLACK CUBE POS', { x: blackCubeX, y: blackCubeY, size: blackCubeSize });
+  }
   requestAnimationFrame(loop);
 }
 
