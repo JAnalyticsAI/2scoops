@@ -12,6 +12,21 @@ public class blackCube : MonoBehaviour
     private float _sendInterval = 0.05f;
     private float _sendTimer = 0f;
 
+    void Awake()
+    {
+        const string desired = "InitialBlackCube";
+        if (gameObject.name != desired)
+        {
+            var other = GameObject.Find(desired);
+            if (other != null && other != gameObject)
+            {
+                Debug.LogWarning($"GameObject rename conflict: another GameObject already named '{desired}'. Renaming this object anyway; SendMessage may target the first found instance.");
+            }
+            Debug.Log($"Renaming GameObject '{gameObject.name}' -> '{desired}' for JS bridge.");
+            gameObject.name = desired;
+        }
+    }
+
     void Start()
     {
         if (initialDirection.sqrMagnitude == 0f)
