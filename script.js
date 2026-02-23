@@ -219,6 +219,8 @@ let __blackLocalActive = false;
 let __blackVx = 120; // px/s default
 let __blackVy = 80;  // px/s default
 let __blackLastTime = null;
+// Stopped flag used to prevent further updates/sends when level completes
+let __blackStopped = false;
 
 function startBlackLocal() {
   if (__blackLocalActive) return;
@@ -290,6 +292,7 @@ let __lastSentNy = null;
 const __sendThreshold = 0.0005; // normalized units (~0.05% of canvas)
 
 function sendBlackCubeIfMoved() {
+  if (typeof __blackStopped !== 'undefined' && __blackStopped) return;
   if (!canvas || !canvas.width || !canvas.height) return;
   const nx = (blackCubeX) / canvas.width;
   const ny = (blackCubeY) / canvas.height; // top-origin
@@ -303,6 +306,65 @@ function sendBlackCubeIfMoved() {
     __lastSentNy = ny;
   }
 }
+
+// Stop/resume helpers to be called from page logic when levels complete or restart.
+window.stopBlackCube = function() {
+  __blackStopped = true;
+  try { stopBlackLocal(); } catch (e) {}
+  // tell Unity to stop movement and pause
+  sendToUnity('InitialBlackCube', 'StopMovement', 'true');
+  sendToUnity('InitialBlackCube', 'PauseMovement', 'true');
+  // optionally deactivate the object in Unity
+  sendToUnity('InitialBlackCube', 'SetActive', 'false');
+  console.log('stopBlackCube: local fallback stopped and messages queued to Unity');
+};
+
+window.resumeBlackCube = function() {
+  __blackStopped = false;
+  try { startBlackLocal(); } catch (e) {}
+  // tell Unity to resume movement and activate object
+  sendToUnity('InitialBlackCube', 'ResumeMovement', 'true');
+  sendToUnity('InitialBlackCube', 'SetActive', 'true');
+  notifyUnityBlackCube();
+  console.log('resumeBlackCube: resumed local and queued resume to Unity');
+};
+
+// Pause/unpause helpers: freeze in-place without clearing stopped state
+window.pauseBlackCube = function() {
+  // stop local simulation but don't mark stopped (so resume continues)
+  try { stopBlackLocal(); } catch (e) {}
+  // tell Unity to pause movement
+  sendToUnity('InitialBlackCube', 'PauseMovement', 'true');
+  console.log('pauseBlackCube: paused local and queued PauseMovement to Unity');
+};
+
+window.resumeBlackCube = (function(orig){
+  return function() {
+    // if previously stopped via stopBlackCube, leave stopped state handling to that function
+    __blackStopped = false;
+    try { startBlackLocal(); } catch (e) {}
+    sendToUnity('InitialBlackCube', 'ResumeMovement', 'true');
+    sendToUnity('InitialBlackCube', 'SetActive', 'true');
+    notifyUnityBlackCube();
+    console.log('resumeBlackCube: resumed local and queued resume to Unity');
+  };
+})(window.resumeBlackCube);
+
+// Reset black cube to initial top-left position (under the navbar) and notify Unity.
+window.resetBlackCubePosition = function() {
+  try {
+    // ensure the canvas bounds are up-to-date
+    try { resizeCanvas(); } catch (e) {}
+    blackCubeX = movementMinX;
+    blackCubeY = movementMinY;
+    clampBlackCube();
+    // inform Unity of the new normalized position
+    try { notifyUnityBlackCube(); } catch (e) {}
+    console.log('resetBlackCubePosition: set to', { x: blackCubeX, y: blackCubeY });
+  } catch (e) {
+    console.warn('resetBlackCubePosition error', e);
+  }
+};
 
 // Input state
 const keys = { left: false, right: false, up: false, down: false };
@@ -346,6 +408,7 @@ function ensurePauseOverlay() {
   retryBtn.textContent = 'Retry (Current Level)';
   retryBtn.addEventListener('click', () => {
     try { if (window.timerManager && typeof window.timerManager.reset === 'function') window.timerManager.reset(); } catch (e) {}
+    try { if (typeof resetBlackCubePosition === 'function') resetBlackCubePosition(); } catch (e) {}
     try { if (typeof window.centerCube === 'function') window.centerCube(); } catch (e) {}
     try { if (typeof resumeGame === 'function') resumeGame(); } catch (e) {}
   });
@@ -357,6 +420,7 @@ function ensurePauseOverlay() {
     try { if (window.levelManager && typeof window.levelManager.reset === 'function') window.levelManager.reset(); } catch (e) {}
     try { if (window.scoreManager && typeof window.scoreManager.reset === 'function') window.scoreManager.reset(); } catch (e) {}
     try { if (window.timerManager && typeof window.timerManager.reset === 'function') window.timerManager.reset(); } catch (e) {}
+    try { if (typeof resetBlackCubePosition === 'function') resetBlackCubePosition(); } catch (e) {}
     try { if (typeof window.centerCube === 'function') window.centerCube(); } catch (e) {}
     try { if (typeof resumeGame === 'function') resumeGame(); } catch (e) {}
   });
@@ -504,6 +568,8 @@ function pauseGame() {
   showPauseOverlay();
   // pause the global timer if present
   try { if (window.timerManager && typeof window.timerManager.pause === 'function') window.timerManager.pause(); } catch (e) {}
+  // pause the black cube (freeze in place)
+  try { if (typeof pauseBlackCube === 'function') pauseBlackCube(); } catch (e) {}
 }
 
 function resumeGame() {
@@ -516,6 +582,8 @@ function resumeGame() {
   restoreKeyboardFocus();
   // resume the global timer if present
   try { if (window.timerManager && typeof window.timerManager.start === 'function') window.timerManager.start(); } catch (e) {}
+  // resume the black cube (unfreeze)
+  try { if (typeof resumeBlackCube === 'function') resumeBlackCube(); } catch (e) {}
 }
 
 // Ensure keyboard focus returns to the page after resuming

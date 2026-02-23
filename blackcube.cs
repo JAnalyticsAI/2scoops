@@ -11,6 +11,7 @@ public class blackCube : MonoBehaviour
     // throttle sending updates back to the page (seconds)
     private float _sendInterval = 0.05f;
     private float _sendTimer = 0f;
+    private bool _paused = false;
 
     void Awake()
     {
@@ -36,6 +37,8 @@ public class blackCube : MonoBehaviour
 
     void Update()
     {
+        if (_paused) return;
+
         transform.position += (Vector3)(velocity * Time.deltaTime);
 
         // send normalized position back to the page at a modest rate
@@ -95,6 +98,24 @@ public class blackCube : MonoBehaviour
     {
         if (dir.sqrMagnitude > 0f)
             velocity = dir.normalized * speed;
+    }
+
+    // Pause and resume movement (callable from JS SendMessage)
+    public void PauseMovement(string payload)
+    {
+        _paused = true;
+    }
+
+    public void ResumeMovement(string payload)
+    {
+        _paused = false;
+    }
+
+    // Immediate stop: zero velocity and pause
+    public void StopMovement(string payload)
+    {
+        velocity = Vector2.zero;
+        _paused = true;
     }
 
     void OnCollisionEnter(Collision collision)
