@@ -355,10 +355,13 @@ window.resetBlackCubePosition = function() {
   try {
     // ensure the canvas bounds are up-to-date
     try { resizeCanvas(); } catch (e) {}
+    // stop local simulation so position stays until resume
+    try { stopBlackLocal(); } catch (e) {}
     blackCubeX = movementMinX;
     blackCubeY = movementMinY;
     clampBlackCube();
-    // inform Unity of the new normalized position
+    // immediately notify page/Unity of the new normalized position
+    try { sendBlackCubeIfMoved(); } catch (e) {}
     try { notifyUnityBlackCube(); } catch (e) {}
     console.log('resetBlackCubePosition: set to', { x: blackCubeX, y: blackCubeY });
   } catch (e) {
