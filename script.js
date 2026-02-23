@@ -221,6 +221,9 @@ let __blackVy = 80;  // px/s default
 let __blackLastTime = null;
 // Stopped flag used to prevent further updates/sends when level completes
 let __blackStopped = false;
+// Previous rendered black cube position (used to freeze instantly on pause)
+let __prevBlackX = null;
+let __prevBlackY = null;
 
 function startBlackLocal() {
   if (__blackLocalActive) return;
@@ -333,6 +336,17 @@ window.resumeBlackCube = function() {
 window.pauseBlackCube = function() {
   // stop local simulation but don't mark stopped (so resume continues)
   try { stopBlackLocal(); } catch (e) {}
+  // snap to previous rendered position so pause appears instantaneous
+  try {
+    if (__prevBlackX !== null && __prevBlackY !== null) {
+      blackCubeX = __prevBlackX;
+      blackCubeY = __prevBlackY;
+      clampBlackCube();
+      // immediately notify Unity of the frozen position
+      try { sendBlackCubeIfMoved(); } catch (e) {}
+      try { notifyUnityBlackCube(); } catch (e) {}
+    }
+  } catch (e) {}
   // tell Unity to pause movement
   sendToUnity('InitialBlackCube', 'PauseMovement', 'true');
   console.log('pauseBlackCube: paused local and queued PauseMovement to Unity');
@@ -704,6 +718,9 @@ function loop(ts) {
   __lastRAF = ts;
 
   clearCanvas();
+  // record previous black cube position before any updates this frame
+  __prevBlackX = blackCubeX;
+  __prevBlackY = blackCubeY;
   updateCubePosition();
   // update black cube local simulation if active
   try { updateBlackLocal(dt); } catch (e) {}
