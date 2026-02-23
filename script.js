@@ -93,23 +93,79 @@ clampBlackCube();
 console.log('BLACK CUBE INIT', { blackCubeX, blackCubeY, blackCubeSize, movementMinX, movementMinY, canvasWidth: canvas.width, canvasHeight: canvas.height });
 
 // Helper to send messages to a Unity WebGL instance (robust to several loader names)
-function sendToUnity(objectName, methodName, payload) {
+// Message queue + sender that retries until Unity's SendMessage becomes available.
+const _unityMessageQueue = [];
+let _unityFlushTimer = null;
+
+function _canSendToUnity() {
   try {
-    if (window.unityInstance && typeof window.unityInstance.SendMessage === 'function') {
-      window.unityInstance.SendMessage(objectName, methodName, payload);
-      return true;
-    }
-    if (typeof SendMessage === 'function') {
-      SendMessage(objectName, methodName, payload);
-      return true;
-    }
-    if (window.Module && typeof window.Module.SendMessage === 'function') {
-      window.Module.SendMessage(objectName, methodName, payload);
-      return true;
-    }
+    if (window.unityInstance && typeof window.unityInstance.SendMessage === 'function') return true;
+    if (typeof SendMessage === 'function') return true;
+    if (window.Module && typeof window.Module.SendMessage === 'function') return true;
   } catch (e) {}
-  // not found — leave a debug trace
-  console.log('Unity SendMessage not available', objectName, methodName, payload);
+  return false;
+}
+
+function _flushUnityQueue() {
+  if (_unityMessageQueue.length === 0) {
+    if (_unityFlushTimer) { clearInterval(_unityFlushTimer); _unityFlushTimer = null; }
+    return;
+  }
+  if (!_canSendToUnity()) return;
+
+  // Try to send all queued messages; if a send fails we keep it for later.
+  for (let i = 0; i < _unityMessageQueue.length; ) {
+    const msg = _unityMessageQueue[i];
+    try {
+      if (window.unityInstance && typeof window.unityInstance.SendMessage === 'function') {
+        window.unityInstance.SendMessage(msg.objectName, msg.methodName, msg.payload);
+        _unityMessageQueue.splice(i, 1);
+        continue;
+      }
+      if (typeof SendMessage === 'function') {
+        SendMessage(msg.objectName, msg.methodName, msg.payload);
+        _unityMessageQueue.splice(i, 1);
+        continue;
+      }
+      if (window.Module && typeof window.Module.SendMessage === 'function') {
+        window.Module.SendMessage(msg.objectName, msg.methodName, msg.payload);
+        _unityMessageQueue.splice(i, 1);
+        continue;
+      }
+    } catch (e) {
+      // if any error occurs, keep the message and try later
+      console.warn('Error sending to Unity, will retry', e, msg);
+      i++;
+    }
+  }
+
+  if (_unityMessageQueue.length === 0 && _unityFlushTimer) { clearInterval(_unityFlushTimer); _unityFlushTimer = null; }
+}
+
+function sendToUnity(objectName, methodName, payload) {
+  const msg = { objectName, methodName, payload };
+  // If we can send immediately, do so.
+  if (_canSendToUnity()) {
+    try {
+      if (window.unityInstance && typeof window.unityInstance.SendMessage === 'function') {
+        window.unityInstance.SendMessage(objectName, methodName, payload);
+        return true;
+      }
+      if (typeof SendMessage === 'function') { SendMessage(objectName, methodName, payload); return true; }
+      if (window.Module && typeof window.Module.SendMessage === 'function') { window.Module.SendMessage(objectName, methodName, payload); return true; }
+    } catch (e) {
+      console.warn('Immediate SendMessage failed, queuing', e, msg);
+    }
+  }
+
+  // Queue the message and start a background flusher if necessary
+  _unityMessageQueue.push(msg);
+  if (!_unityFlushTimer) {
+    _unityFlushTimer = setInterval(_flushUnityQueue, 250);
+  }
+  // also try a short timeout flush (for fast initializations)
+  setTimeout(_flushUnityQueue, 100);
+  console.log('Unity SendMessage not available yet; queued', objectName, methodName, payload);
   return false;
 }
 
