@@ -201,6 +201,64 @@ window.ReceiveUnityBlackCube = function(payload) {
   }
 };
 
+// --- Local JS fallback animation for black cube (used when Unity doesn't initialize) ---
+let __blackLocalActive = false;
+let __blackVx = 120; // px/s default
+let __blackVy = 80;  // px/s default
+let __blackLastTime = null;
+
+function startBlackLocal() {
+  if (__blackLocalActive) return;
+  __blackLocalActive = true;
+  // randomize initial direction
+  const angle = (Math.random() * Math.PI * 2);
+  const speed = Math.max(80, Math.min(220, Math.hypot(__blackVx, __blackVy)));
+  __blackVx = Math.cos(angle) * speed;
+  __blackVy = Math.sin(angle) * speed;
+  __blackLastTime = performance.now();
+  console.log('Black cube local simulation started');
+}
+
+function stopBlackLocal() {
+  if (!__blackLocalActive) return;
+  __blackLocalActive = false;
+  __blackLastTime = null;
+  // push final state to Unity when possible
+  try { notifyUnityBlackCube(); } catch (e) {}
+  console.log('Black cube local simulation stopped (Unity available)');
+}
+
+function updateBlackLocal(dt) {
+  if (!__blackLocalActive) return;
+  // move
+  blackCubeX += __blackVx * dt;
+  blackCubeY += __blackVy * dt;
+  // bounce within canvas bounds
+  const minX = movementMinX;
+  const minY = movementMinY;
+  const maxX = Math.max(minX, canvas.width - blackCubeSize);
+  const maxY = Math.max(minY, canvas.height - blackCubeSize);
+  if (blackCubeX <= minX) { blackCubeX = minX; __blackVx = Math.abs(__blackVx); }
+  else if (blackCubeX >= maxX) { blackCubeX = maxX; __blackVx = -Math.abs(__blackVx); }
+  if (blackCubeY <= minY) { blackCubeY = minY; __blackVy = Math.abs(__blackVy); }
+  else if (blackCubeY >= maxY) { blackCubeY = maxY; __blackVy = -Math.abs(__blackVy); }
+  clampBlackCube();
+  // try to notify Unity if available
+  if (_canSendToUnity()) {
+    stopBlackLocal();
+  } else {
+    // occasionally log
+    if (Math.random() < 0.005) console.log('BlackLocal updating; Unity unavailable');
+  }
+}
+
+// start fallback if Unity isn't available after a short delay
+setTimeout(() => {
+  try {
+    if (!_canSendToUnity()) startBlackLocal();
+  } catch (e) { startBlackLocal(); }
+}, 2000);
+
 // Continuous sync state: only send when position changes enough to avoid spamming
 let __lastSentNx = null;
 let __lastSentNy = null;
@@ -542,10 +600,17 @@ canvas.addEventListener("touchmove", (e) => {
 }, { passive: false });
 canvas.addEventListener("touchend", () => { isDragging = false; });
 
-// Main loop
-function loop() {
+// Main loop (uses requestAnimationFrame timestamp to compute delta)
+let __lastRAF = null;
+function loop(ts) {
+  if (!__lastRAF) __lastRAF = ts;
+  const dt = Math.max(0, (ts - __lastRAF) / 1000);
+  __lastRAF = ts;
+
   clearCanvas();
   updateCubePosition();
+  // update black cube local simulation if active
+  try { updateBlackLocal(dt); } catch (e) {}
   // update and draw the main red cube first, then the black cube on top
   drawCube();
   drawBlackCube();
