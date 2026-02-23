@@ -224,6 +224,8 @@ let __blackStopped = false;
 // Previous rendered black cube position (used to freeze instantly on pause)
 let __prevBlackX = null;
 let __prevBlackY = null;
+// Frozen flag used to lock the black cube in place while paused
+let __blackFrozen = false;
 
 function startBlackLocal() {
   if (__blackLocalActive) return;
@@ -248,6 +250,7 @@ function stopBlackLocal() {
 
 function updateBlackLocal(dt) {
   if (!__blackLocalActive) return;
+  if (__blackFrozen) return;
   // move
   blackCubeX += __blackVx * dt;
   blackCubeY += __blackVy * dt;
@@ -338,14 +341,16 @@ window.pauseBlackCube = function() {
   try { stopBlackLocal(); } catch (e) {}
   // snap to previous rendered position so pause appears instantaneous
   try {
-    if (__prevBlackX !== null && __prevBlackY !== null) {
-      blackCubeX = __prevBlackX;
-      blackCubeY = __prevBlackY;
-      clampBlackCube();
-      // immediately notify Unity of the frozen position
-      try { sendBlackCubeIfMoved(); } catch (e) {}
-      try { notifyUnityBlackCube(); } catch (e) {}
-    }
+    // freeze at the current position (prefer the most-recent rendered position)
+    const fx = (__prevBlackX !== null) ? __prevBlackX : blackCubeX;
+    const fy = (__prevBlackY !== null) ? __prevBlackY : blackCubeY;
+    __blackFrozen = true;
+    blackCubeX = fx;
+    blackCubeY = fy;
+    clampBlackCube();
+    // immediately notify Unity/page of the frozen position
+    try { sendBlackCubeIfMoved(); } catch (e) {}
+    try { notifyUnityBlackCube(); } catch (e) {}
   } catch (e) {}
   // tell Unity to pause movement
   sendToUnity('InitialBlackCube', 'PauseMovement', 'true');
@@ -356,6 +361,7 @@ window.resumeBlackCube = (function(orig){
   return function() {
     // if previously stopped via stopBlackCube, leave stopped state handling to that function
     __blackStopped = false;
+    __blackFrozen = false;
     try { startBlackLocal(); } catch (e) {}
     sendToUnity('InitialBlackCube', 'ResumeMovement', 'true');
     sendToUnity('InitialBlackCube', 'SetActive', 'true');
