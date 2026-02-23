@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Globalization;
 
 public class blackCube : MonoBehaviour
 {
@@ -77,5 +78,39 @@ public class blackCube : MonoBehaviour
         Vector2 v = velocity;
         Vector2 reflected = v - 2f * Vector2.Dot(v, n) * n;
         velocity = reflected.normalized * speed;
+    }
+
+    // Called from JavaScript via SendMessage(objectName, "SetPositionFromNormalized", "nx,ny")
+    // `nx` and `ny` are normalized canvas coordinates (0..1) with top-origin for `ny`.
+    public void SetPositionFromNormalized(string payload)
+    {
+        if (string.IsNullOrEmpty(payload)) return;
+        var parts = payload.Split(',');
+        if (parts.Length < 2) return;
+        if (!float.TryParse(parts[0], NumberStyles.Float, CultureInfo.InvariantCulture, out float nx)) return;
+        if (!float.TryParse(parts[1], NumberStyles.Float, CultureInfo.InvariantCulture, out float nyTop)) return;
+
+        Camera cam = Camera.main;
+        if (cam == null) return;
+
+        // JS uses top-origin for Y; Unity viewport uses bottom-origin.
+        float ny = 1f - nyTop;
+
+        // Preserve current distance from camera to object (z in viewport space)
+        float z = cam.WorldToViewportPoint(transform.position).z;
+        Vector3 worldPos = cam.ViewportToWorldPoint(new Vector3(nx, ny, z));
+
+        transform.position = new Vector3(worldPos.x, worldPos.y, transform.position.z);
+    }
+
+    // Called from JavaScript via SendMessage(objectName, "SetActive", "true"/"false")
+    public void SetActive(string payload)
+    {
+        if (string.IsNullOrEmpty(payload)) return;
+        if (bool.TryParse(payload, out bool active))
+        {
+            gameObject.SetActive(active);
+            enabled = active;
+        }
     }
 }
