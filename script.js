@@ -234,10 +234,14 @@ function startBlackLocal() {
   if (__blackLocalActive) return;
   __blackLocalActive = true;
   // randomize initial direction
-  const angle = (Math.random() * Math.PI * 2);
-  const speed = Math.max(80, Math.min(220, Math.hypot(__blackVx, __blackVy)));
-  __blackVx = Math.cos(angle) * speed;
-  __blackVy = Math.sin(angle) * speed;
+  // preserve existing velocity when resuming; only randomize if velocity is zero
+  const currentSpeed = Math.hypot(__blackVx, __blackVy);
+  if (!Number.isFinite(currentSpeed) || currentSpeed === 0) {
+    const angle = (Math.random() * Math.PI * 2);
+    const speed = 120; // sensible default
+    __blackVx = Math.cos(angle) * speed;
+    __blackVy = Math.sin(angle) * speed;
+  }
   __blackLastTime = performance.now();
   console.log('Black cube local simulation started');
 }
@@ -365,11 +369,23 @@ window.resumeBlackCube = (function(orig){
     // if previously stopped via stopBlackCube, leave stopped state handling to that function
     __blackStopped = false;
     __blackFrozen = false;
-    try { startBlackLocal(); } catch (e) {}
+    // suppress auto-start briefly to avoid local/Unity race that can nudge the cube
+    window.__suppressLocalStart = true;
+    // tell Unity to resume movement and activate object
     sendToUnity('InitialBlackCube', 'ResumeMovement', 'true');
     sendToUnity('InitialBlackCube', 'SetActive', 'true');
+    // inform Unity of current position
     notifyUnityBlackCube();
-    console.log('resumeBlackCube: resumed local and queued resume to Unity');
+    console.log('resumeBlackCube: queued resume to Unity; local fallback suppressed briefly');
+    // after a short delay, if Unity is still unavailable, start the local fallback
+    setTimeout(() => {
+      window.__suppressLocalStart = false;
+      try {
+        if (!_canSendToUnity() && !__blackStopped && !__blackFrozen) {
+          startBlackLocal();
+        }
+      } catch (e) {}
+    }, 150);
   };
 })(window.resumeBlackCube);
 
