@@ -178,7 +178,10 @@ function sendToUnity(objectName, methodName, payload) {
   setTimeout(_flushUnityQueue, 100);
   console.log('Unity SendMessage not available yet; queued', objectName, methodName, payload);
   // If Unity isn't available, ensure the JS local fallback runs so the black cube moves on the page
-  try { if (typeof startBlackLocal === 'function') startBlackLocal(); } catch (e) {}
+  // but respect suppression (used during resets) and paused/stopped flags
+  try {
+    if (typeof startBlackLocal === 'function' && !window.__suppressLocalStart && !__blackStopped && !__blackFrozen) startBlackLocal();
+  } catch (e) {}
   return false;
 }
 
@@ -377,6 +380,8 @@ window.resetBlackCubePosition = function() {
     try { resizeCanvas(); } catch (e) {}
     // stop local simulation so position stays until resume
     try { stopBlackLocal(); } catch (e) {}
+    // suppress auto-start of local fallback while we notify/reset
+    window.__suppressLocalStart = true;
     blackCubeX = movementMinX;
     blackCubeY = movementMinY;
     clampBlackCube();
@@ -384,6 +389,8 @@ window.resetBlackCubePosition = function() {
     try { sendBlackCubeIfMoved(); } catch (e) {}
     try { notifyUnityBlackCube(); } catch (e) {}
     console.log('resetBlackCubePosition: set to', { x: blackCubeX, y: blackCubeY });
+    // clear suppression shortly after so normal fallback behavior resumes
+    setTimeout(() => { window.__suppressLocalStart = false; }, 250);
   } catch (e) {
     console.warn('resetBlackCubePosition error', e);
   }
