@@ -229,6 +229,8 @@ let __prevBlackX = null;
 let __prevBlackY = null;
 // Frozen flag used to lock the black cube in place while paused
 let __blackFrozen = false;
+// Debug flag: set `window.__blackDebug = true` in console to enable verbose fallback logs
+window.__blackDebug = window.__blackDebug || false;
 
 function startBlackLocal() {
   if (__blackLocalActive) return;
@@ -275,8 +277,8 @@ function updateBlackLocal(dt) {
   if (_canSendToUnity()) {
     stopBlackLocal();
   } else {
-    // occasionally log
-    if (Math.random() < 0.005) console.log('BlackLocal updating; Unity unavailable');
+    // verbose logging only when explicitly enabled
+    if (window.__blackDebug) console.log('BlackLocal updating; Unity unavailable');
   }
 }
 
