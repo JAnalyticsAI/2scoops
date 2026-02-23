@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Globalization;
+using System.Runtime.InteropServices;
 
 public class blackCube : MonoBehaviour
 {
@@ -7,6 +8,9 @@ public class blackCube : MonoBehaviour
     public Vector2 initialDirection = new Vector2(1f, 0.3f);
 
     private Vector2 velocity;
+    // throttle sending updates back to the page (seconds)
+    private float _sendInterval = 0.05f;
+    private float _sendTimer = 0f;
 
     void Start()
     {
@@ -18,6 +22,14 @@ public class blackCube : MonoBehaviour
     void Update()
     {
         transform.position += (Vector3)(velocity * Time.deltaTime);
+
+        // send normalized position back to the page at a modest rate
+        _sendTimer -= Time.deltaTime;
+        if (_sendTimer <= 0f)
+        {
+            _sendTimer = _sendInterval;
+            TryNotifyPageOfPosition();
+        }
 
         Camera cam = Camera.main;
         if (cam == null) return;
@@ -112,5 +124,28 @@ public class blackCube : MonoBehaviour
             gameObject.SetActive(active);
             enabled = active;
         }
+    }
+
+    // --- WebGL -> JS bridge ---
+#if UNITY_WEBGL && !UNITY_EDITOR
+    [DllImport("__Internal")]
+    private static extern void BlackCube_NotifyJS(string str);
+#else
+    private static void BlackCube_NotifyJS(string str) { }
+#endif
+
+    private void TryNotifyPageOfPosition()
+    {
+        Camera cam = Camera.main;
+        if (cam == null) return;
+        Vector3 vp = cam.WorldToViewportPoint(transform.position);
+        float nx = vp.x;
+        float nyTop = 1f - vp.y; // convert to top-origin to match page
+        string s = nx.ToString(CultureInfo.InvariantCulture) + "," + nyTop.ToString(CultureInfo.InvariantCulture);
+        try
+        {
+            BlackCube_NotifyJS(s);
+        }
+        catch { }
     }
 }

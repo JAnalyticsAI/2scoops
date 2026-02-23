@@ -125,6 +125,26 @@ function notifyUnityBlackCube() {
 // try one-time notify after initialization
 setTimeout(notifyUnityBlackCube, 200);
 
+// Receive position updates from Unity WebGL build.
+// Unity will call into the page with a normalized position string: "nx,ny" (top-origin ny).
+window.ReceiveUnityBlackCube = function(payload) {
+  try {
+    if (!payload || typeof payload !== 'string') return;
+    const parts = payload.split(',');
+    if (parts.length < 2) return;
+    const nx = parseFloat(parts[0]);
+    const nyTop = parseFloat(parts[1]);
+    if (!Number.isFinite(nx) || !Number.isFinite(nyTop)) return;
+    if (!canvas || !canvas.width || !canvas.height) return;
+    // convert normalized top-origin to canvas coordinates
+    blackCubeX = nx * canvas.width;
+    blackCubeY = nyTop * canvas.height;
+    clampBlackCube();
+  } catch (e) {
+    console.warn('ReceiveUnityBlackCube parse error', e, payload);
+  }
+};
+
 // Continuous sync state: only send when position changes enough to avoid spamming
 let __lastSentNx = null;
 let __lastSentNy = null;
