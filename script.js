@@ -5,6 +5,17 @@ const ctx = canvas.getContext("2d");
 // Make canvas focusable so we can restore keyboard focus to it
 canvas.tabIndex = 0;
 
+// Lightweight debug helper available early to inspect Unity bridge state
+window.debugUnityStatus = function() {
+  try {
+    console.log('canSendToUnity:', (typeof _canSendToUnity === 'function') ? _canSendToUnity() : 'unknown');
+    console.log('queueLength:', (typeof _unityMessageQueue !== 'undefined') ? _unityMessageQueue.length : 'undefined');
+    console.log('localFallbackActive:', !!window.__blackLocalActive);
+    console.log('lastUnityBlackCube (stored):', window._lastUnityBlackCube);
+    console.log('blackCube coords:', (typeof blackCubeX !== 'undefined') ? blackCubeX : 'NA', (typeof blackCubeY !== 'undefined') ? blackCubeY : 'NA');
+  } catch (e) { console.warn('debugUnityStatus error', e); }
+};
+
 // Canvas sizing: set canvas to the interior of `#app-border`, excluding the navbar height
 function resizeCanvas() {
   const app = document.getElementById('app-border');
