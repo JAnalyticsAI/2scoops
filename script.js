@@ -166,6 +166,8 @@ function sendToUnity(objectName, methodName, payload) {
   // also try a short timeout flush (for fast initializations)
   setTimeout(_flushUnityQueue, 100);
   console.log('Unity SendMessage not available yet; queued', objectName, methodName, payload);
+  // If Unity isn't available, ensure the JS local fallback runs so the black cube moves on the page
+  try { if (typeof startBlackLocal === 'function') startBlackLocal(); } catch (e) {}
   return false;
 }
 
@@ -258,6 +260,18 @@ setTimeout(() => {
     if (!_canSendToUnity()) startBlackLocal();
   } catch (e) { startBlackLocal(); }
 }, 2000);
+
+// Debug helper: call `window.debugUnityStatus()` in the console to inspect availability and queue
+window.debugUnityStatus = function() {
+  try {
+    console.log('canSendToUnity:', _canSendToUnity());
+    console.log('queueLength:', _unityMessageQueue.length, 'localFallbackActive:', !!__blackLocalActive);
+    console.log('unityInstance.SendMessage:', window.unityInstance && typeof window.unityInstance.SendMessage === 'function');
+    console.log('global SendMessage:', typeof SendMessage === 'function');
+    console.log('Module.SendMessage:', window.Module && typeof window.Module.SendMessage === 'function');
+    console.log('lastUnityBlackCube (stored):', window._lastUnityBlackCube);
+  } catch (e) { console.warn('debugUnityStatus error', e); }
+};
 
 // Continuous sync state: only send when position changes enough to avoid spamming
 let __lastSentNx = null;
